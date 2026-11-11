@@ -1,0 +1,94 @@
+.biz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.biz-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px 12px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.biz-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.biz-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.biz-icon svg { width: 26px; height: 26px; }
+
+.biz-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+.c-hardware    { background: #EDE4D8; } .c-hardware svg    { stroke: #8A5A2B; }
+.c-furniture   { background: #E7DFF3; } .c-furniture svg   { stroke: #6B4FBB; }
+.c-groceries   { background: #DEF3E4; } .c-groceries svg   { stroke: #1F9E5C; }
+.c-jewellery   { background: #FCE9F1; } .c-jewellery svg   { stroke: #C22B7A; }
+.c-wine        { background: #F3E0E4; } .c-wine svg        { stroke: #7A2036; }
+.c-perfume     { background: #EAE0F7; } .c-perfume svg     { stroke: #6B3FA0; }
+.c-carparts    { background: #E3E7EC; } .c-carparts svg    { stroke: #3A4A5C; }
+.c-mutumba     { background: #F6E9D7; } .c-mutumba svg     { stroke: #A0672B; }
+.c-phonerepair { background: #DDEFF5; } .c-phonerepair svg { stroke: #1D7A99; }
+.c-electronics { background: #E0E9F7; } .c-electronics svg { stroke: #2451A0; }
+
+/* ---------- Shop detail styling (hardware.html / electronics.html) ---------- */
+.item-desc {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- Icon-based media (used instead of photos for niche categories) ---------- */
+.cat-media-icon {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cat-media-icon i svg,
+.cat-media-icon svg {
+  width: 44px;
+  height: 44px;
+}
+
+.badge-overlay {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.item-media-icon {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-media-icon svg {
+  width: 34px;
+  height: 34px;
+}

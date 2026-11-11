@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signin.css">
+<style>
+  .role-selector-pills { display: flex; gap: 8px; margin-bottom: 20px; background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 4px; }
+  .role-pill { flex: 1; border: none; background: none; padding: 10px 14px; border-radius: 999px; font-family: var(--font-display); font-weight: 600; font-size: 0.82rem; color: var(--ink-soft); cursor: pointer; text-align: center; transition: all 0.2s ease; }
+  .role-pill.active { background: var(--purple-deep); color: #fff; box-shadow: 0 2px 6px rgba(74,63,140,0.2); }
+  .role-indicator-badge { font-size: 0.76rem; font-family: var(--font-mono); color: var(--purple-deep); margin-bottom: 12px; display: inline-block; background: var(--purple-faded); padding: 4px 10px; border-radius: 6px; }
+  .quick-demo-fill { margin-top: 14px; padding: 10px 14px; background: var(--bg); border: 1px dashed var(--border); border-radius: 10px; font-size: 0.78rem; color: var(--ink-soft); line-height: 1.4; }
+  .quick-demo-fill a { color: var(--purple-deep); font-weight: 600; text-decoration: underline; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+
+<main class="signin-page">
+  <a href="index.html" class="logo signin-logo">NyumbaLink</a>
+
+  <div class="signin-card" id="signinCard">
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="login">Sign in</button>
+      <button class="mode-btn" data-mode="signup">Create account</button>
+    </div>
+
+    <!-- Role Selection: Tenant vs Landlord vs Private Admin Sign-in -->
+    <p class="section-label">Sign in as</p>
+    <div class="role-selector-pills" role="tablist">
+      <button type="button" class="role-pill active" id="pillTenant" onclick="selectRole('tenant')">Tenant</button>
+      <button type="button" class="role-pill" id="pillLandlord" onclick="selectRole('landlord')">Landlord</button>
+    </div>
+
+    <div id="roleBadge" class="role-indicator-badge">Role: Tenant (Housing Search &amp; Escrow Deposit)</div>
+
+    <form class="signin-form" onsubmit="return handleSubmit(event)">
+      <label class="field-label" id="fieldIdentifierLabel">Phone number or email</label>
+      <input type="text" id="inputIdentifier" placeholder="0712 345 678 or you@email.com" value="0700 882 119" required>
+
+      <label class="field-label">Password</label>
+      <input type="password" id="inputPassword" placeholder="••••••••" value="password123" required>
+
+      <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Sign in as Tenant</button>
+    </form>
+
+    <div class="quick-demo-fill">
+      <strong>Quick Autofill:</strong> 
+      <a onclick="autofillRole('tenant')">Tenant Demo</a> · 
+      <a onclick="autofillRole('landlord')">Landlord Demo</a> · 
+      <a onclick="autofillRole('admin')">Platform Admin</a>
+    </div>
+
+    <p class="signin-note">Protected by NyumbaLink Synchro Escrow &amp; Resident Privacy Shield.</p>
+  </div>
+</main>
+
+<script src="signin.js"></script>
+</body>
+</html>

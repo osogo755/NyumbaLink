@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jewellery — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="business.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="business.html">Business</a> <span>/</span> Jewellery
+  </div>
+
+  <div class="category-head">
+    <h1>Jewellery near you</h1>
+    <p>Gold, silver, and beaded pieces for every occasion.</p>
+  </div>
+
+  <section class="category-listings">
+
+    <a href="jewellery-shop.html" class="cat-card">
+      <div class="cat-media-icon c-jewellery">
+        <i data-icon="jewellery"></i>
+        <span class="badge-avail badge-overlay">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Jewellery</p>
+        <h3 class="cat-name">Gemline Jewellers</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Nairobi</p>
+        <p class="cat-desc">Gold and silver jewellery, engagement rings, and custom engraving.</p>
+        <p class="cat-price">bracelets from <span>KSh 800</span></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" onclick="return comingSoon(event)">
+      <div class="cat-media-icon c-jewellery">
+        <i data-icon="jewellery"></i>
+        <span class="badge-avail badge-overlay">Closed</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Jewellery</p>
+        <h3 class="cat-name">Aurum Gold & Silver</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town</p>
+        <p class="cat-desc">Fine gold and silver pieces, valuations, and repairs. Opens again at 9am.</p>
+        <p class="cat-price">rings from <span>KSh 1,500</span></p>
+      </div>
+    </a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="business-icons.js"></script>
+</body>
+</html>

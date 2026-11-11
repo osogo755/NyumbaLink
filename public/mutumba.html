@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mutumba — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="business.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="business.html">Business</a> <span>/</span> Mutumba
+  </div>
+
+  <div class="category-head">
+    <h1>Mutumba near you</h1>
+    <p>Quality second-hand clothing bales — sold by the piece or the bundle.</p>
+  </div>
+
+  <section class="category-listings">
+
+    <a href="mutumba-shop.html" class="cat-card">
+      <div class="cat-media-icon c-mutumba">
+        <i data-icon="mutumba"></i>
+        <span class="badge-avail badge-overlay">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Mutumba</p>
+        <h3 class="cat-name">Bale Bargains</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town</p>
+        <p class="cat-desc">Fresh bale openings weekly — shirts, jeans, jackets, and kids' wear.</p>
+        <p class="cat-price">single pieces from <span>KSh 100</span></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" onclick="return comingSoon(event)">
+      <div class="cat-media-icon c-mutumba">
+        <i data-icon="mutumba"></i>
+        <span class="badge-avail badge-overlay">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Mutumba</p>
+        <h3 class="cat-name">Mtumba Junction</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Nairobi</p>
+        <p class="cat-desc">Second-hand fashion sold by the piece — sorted and priced daily.</p>
+        <p class="cat-price">single pieces from <span>KSh 150</span></p>
+      </div>
+    </a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="business-icons.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+/* ---------- Tab hero (scroll-triggered 3D banner + activity ticker) ---------- */
+/* Palette: #0D0907 #040200 #0C090A #060606 #151922 #252321 #4D423E */
+
+.tab-hero {
+  position: relative;
+  height: 46vh;
+  min-height: 320px;
+  max-height: 460px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 48px 0;
+  background:
+    radial-gradient(circle at 30% 20%, #151922 0%, #0C090A 55%, #040200 100%);
+
+  /* Sits below the fold, out of the sticky header's way — starts hidden
+     below its own position and springs up once scrolled into view. */
+  opacity: 0;
+  transform: translateY(80px);
+}
+
+.tab-hero.in-view {
+  animation: hero-pop-bounce 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes hero-pop-bounce {
+  0%   { opacity: 0; transform: translateY(140px); }
+  8%   { opacity: 1; }
+  38%  { transform: translateY(-22px); }   /* bounce 1 (largest) */
+  52%  { transform: translateY(10px); }
+  66%  { transform: translateY(-9px); }    /* bounce 2 (smaller) */
+  78%  { transform: translateY(4px); }
+  88%  { transform: translateY(-3px); }    /* bounce 3 (smallest) */
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.tab-hero-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.tab-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) brightness(0.8);
+  transform: scale(1.18);
+  transition: transform 1.6s cubic-bezier(0.16, 0.8, 0.28, 1);
+}
+
+.tab-hero.in-view .tab-hero-image img {
+  transform: scale(1.02);
+}
+
+.tab-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4,2,0,0.15) 0%, rgba(4,2,0,0.15) 40%, rgba(4,2,0,0.85) 100%);
+  z-index: 1;
+}
+
+.tab-hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px 34px;
+}
+
+.tab-hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #C9BEB2;
+  opacity: 0;
+}
+
+.tab-hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4.6vw, 2.8rem);
+  color: #FAF7F2;
+  margin-top: 6px;
+  opacity: 0;
+}
+
+.tab-hero.in-view .tab-hero-eyebrow {
+  animation: hero-text-in 0.7s ease forwards;
+  animation-delay: 0.75s;
+}
+
+.tab-hero.in-view .tab-hero-title {
+  animation: hero-text-in 0.7s ease forwards;
+  animation-delay: 0.9s;
+}
+
+@keyframes hero-text-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Activity ticker: right in, hold, exit left within ~2s ---------- */
+.activity-ticker {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 3;
+  max-width: min(78%, 360px);
+  background: rgba(255,255,255,0.09);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #FAF7F2;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+}
+
+.tab-hero.in-view .activity-ticker {
+  animation: ticker-cycle 5.5s ease-in-out infinite;
+  animation-delay: 1.1s;
+}
+
+.activity-ticker::before {
+  content: "●";
+  color: #6ED9A0;
+  font-size: 0.6rem;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* 0–0.5s enter · 0.5–2.5s visible (2s hold) · 2.5–4.5s exit left (2s) · rest: gap before next */
+@keyframes ticker-cycle {
+  0%    { transform: translateX(140%); opacity: 0; }
+  9%    { transform: translateX(0); opacity: 1; }
+  45%   { transform: translateX(0); opacity: 1; }
+  82%   { transform: translateX(-160%); opacity: 0; }
+  100%  { transform: translateX(-160%); opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .tab-hero { height: 38vh; min-height: 260px; }
+  .activity-ticker { left: 22px; right: 22px; max-width: none; top: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-hero { opacity: 1; transform: none; }
+  .tab-hero.in-view { animation: none; }
+  .tab-hero-image img { transition: none; transform: scale(1.02); }
+  .tab-hero-eyebrow, .tab-hero-title { opacity: 1; animation: none; }
+  .activity-ticker { animation: none; opacity: 1; transform: none; }
+}

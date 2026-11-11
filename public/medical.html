@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="business.css">
+<link rel="stylesheet" href="medical.css">
+<link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> Medical
+  </div>
+
+  <div class="category-head category-head-row">
+    <div>
+      <h1>Medical facilities near you</h1>
+      <p>Registered clinics and practices — for people, and for animals.</p>
+    </div>
+    <div class="side-toggle">
+      <button class="side-btn active" data-side="people">For People</button>
+      <button class="side-btn" data-side="animals">For Animals</button>
+    </div>
+  </div>
+
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-overlay" id="nearestCard">
+      <p class="map-overlay-label" id="nearestLabel">Nearest clinic</p>
+      <p class="map-overlay-name" id="nearestName">Locating you…</p>
+      <p class="map-overlay-dist" id="nearestDist">—</p>
+    </div>
+  </section>
+  <p class="map-note">Green line shows the route to the nearest facility for the side you're viewing.</p>
+
+  <section class="biz-grid" id="peopleGrid">
+    <a href="general-clinic.html" class="biz-tile"><div class="biz-icon c-med1"><i data-icon="cross"></i></div><p class="biz-name">General Clinic</p></a>
+    <a href="dental-clinic.html" class="biz-tile"><div class="biz-icon c-med2"><i data-icon="cross"></i></div><p class="biz-name">Dental Clinic</p></a>
+    <a href="eye-clinic.html" class="biz-tile"><div class="biz-icon c-med3"><i data-icon="cross"></i></div><p class="biz-name">Eye Clinic</p></a>
+    <a href="physiotherapy.html" class="biz-tile"><div class="biz-icon c-med4"><i data-icon="cross"></i></div><p class="biz-name">Physiotherapy</p></a>
+    <a href="maternity-clinic.html" class="biz-tile"><div class="biz-icon c-med5"><i data-icon="cross"></i></div><p class="biz-name">Maternity Clinic</p></a>
+    <a href="pediatric-clinic.html" class="biz-tile"><div class="biz-icon c-med6"><i data-icon="cross"></i></div><p class="biz-name">Pediatric Clinic</p></a>
+    <a href="dermatology-clinic.html" class="biz-tile"><div class="biz-icon c-med7"><i data-icon="cross"></i></div><p class="biz-name">Dermatology Clinic</p></a>
+    <a href="ent-clinic.html" class="biz-tile"><div class="biz-icon c-med8"><i data-icon="cross"></i></div><p class="biz-name">ENT Clinic</p></a>
+    <a href="orthopedic-clinic.html" class="biz-tile"><div class="biz-icon c-med9"><i data-icon="cross"></i></div><p class="biz-name">Orthopedic Clinic</p></a>
+    <a href="diagnostic-lab.html" class="biz-tile"><div class="biz-icon c-med10"><i data-icon="cross"></i></div><p class="biz-name">Diagnostic &amp; Lab Services</p></a>
+    <a href="pharmacy.html" class="biz-tile"><div class="biz-icon c-med11"><i data-icon="cross"></i></div><p class="biz-name">Pharmacy</p></a>
+    <a href="mental-health-clinic.html" class="biz-tile"><div class="biz-icon c-med12"><i data-icon="cross"></i></div><p class="biz-name">Mental Health Clinic</p></a>
+    <a href="dialysis-center.html" class="biz-tile"><div class="biz-icon c-med13"><i data-icon="cross"></i></div><p class="biz-name">Dialysis Center</p></a>
+    <a href="radiology-imaging.html" class="biz-tile"><div class="biz-icon c-med14"><i data-icon="cross"></i></div><p class="biz-name">Radiology &amp; Imaging</p></a>
+    <a href="nutrition-clinic.html" class="biz-tile"><div class="biz-icon c-med15"><i data-icon="cross"></i></div><p class="biz-name">Nutrition Clinic</p></a>
+  </section>
+
+  <section class="biz-grid hidden" id="animalGrid">
+    <a href="general-vet.html" class="biz-tile"><div class="biz-icon c-vet1"><i data-icon="paw"></i></div><p class="biz-name">General Veterinary Clinic</p></a>
+    <a href="pet-vaccination.html" class="biz-tile"><div class="biz-icon c-vet2"><i data-icon="paw"></i></div><p class="biz-name">Pet Vaccination Clinic</p></a>
+    <a href="animal-dental.html" class="biz-tile"><div class="biz-icon c-vet3"><i data-icon="paw"></i></div><p class="biz-name">Animal Dental Care</p></a>
+    <a href="pet-grooming.html" class="biz-tile"><div class="biz-icon c-vet4"><i data-icon="paw"></i></div><p class="biz-name">Pet Grooming &amp; Care</p></a>
+    <a href="livestock-vet.html" class="biz-tile"><div class="biz-icon c-vet5"><i data-icon="paw"></i></div><p class="biz-name">Livestock &amp; Farm Vet</p></a>
+    <a href="exotic-vet.html" class="biz-tile"><div class="biz-icon c-vet6"><i data-icon="paw"></i></div><p class="biz-name">Exotic Animal Vet</p></a>
+    <a href="animal-diagnostic.html" class="biz-tile"><div class="biz-icon c-vet7"><i data-icon="paw"></i></div><p class="biz-name">Animal Diagnostic Lab</p></a>
+    <a href="pet-boarding.html" class="biz-tile"><div class="biz-icon c-vet8"><i data-icon="paw"></i></div><p class="biz-name">Pet Boarding with Vet Care</p></a>
+  </section>
+
+  <div id="tabIntro"
+       data-intro-image="https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?w=1200&h=900&fit=crop"
+       data-intro-eyebrow="Welcome to"
+       data-intro-title="Medical"
+       data-intro-font="var(--font-mono)"
+       data-intro-activity="General Clinic — appointment booked 20 mins ago|Vet clinic viewed 8 times today|Dental Clinic — new listing added"></div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<script src="script.js"></script>
+<script src="business-icons.js"></script>
+<script src="medical.js"></script>
+<script src="intro.js"></script>
+</body>
+</html>

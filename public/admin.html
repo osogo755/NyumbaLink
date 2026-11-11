@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Command Center — NyumbaLink Synchro Escrow & Approvals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="account.css">
+<style>
+  .admin-header-badge { background: #4A3F8C; color: #fff; padding: 3px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; margin-left: 8px; vertical-align: middle; }
+  .stats-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat-card-admin { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+  .stat-card-admin::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--purple-deep); }
+  .stat-card-admin.amber::before { background: var(--amber); }
+  .stat-card-admin.teal::before { background: var(--teal); }
+  
+  .tabs-admin { display: flex; gap: 10px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  .tab-admin-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 8px 18px; font-family: var(--font-display); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); cursor: pointer; }
+  .tab-admin-btn.active { background: var(--purple-deep); color: #fff; border-color: var(--purple-deep); }
+
+  .admin-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; font-size: 0.85rem; }
+  .admin-table th { background: var(--bg); font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--ink-soft); padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+  .admin-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .admin-table tr:last-child td { border-bottom: none; }
+
+  .badge-status { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+  .badge-held { background: #FBEBD4; color: #8A4C00; border: 1px solid #E8952F; }
+  .badge-verified { background: #DEF3EC; color: #0F5A46; border: 1px solid #1F9E7C; }
+  .badge-released { background: #E7DFF3; color: #4A3F8C; border: 1px solid #7A6CC7; }
+  .badge-refunded { background: #FCE9F1; color: #C22B7A; border: 1px solid #C22B7A; }
+  .badge-pending { background: #FFF4D9; color: #734A00; }
+
+  .btn-action { padding: 6px 12px; font-size: 0.76rem; border-radius: 6px; font-family: var(--font-display); font-weight: 600; cursor: pointer; border: none; margin-right: 4px; }
+  .btn-certify { background: var(--teal); color: #fff; }
+  .btn-release { background: var(--purple-deep); color: #fff; }
+  .btn-refund { background: #fdf0f0; color: #c53030; border: 1px solid #fed7d7; }
+  .btn-approve { background: var(--teal); color: #fff; }
+  .btn-reject { background: #FFF0F2; color: #9B1C1C; border: 1px solid #F8B4B4; }
+
+  .alert-toast { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: var(--ink); color: #fff; padding: 14px 20px; border-radius: 12px; font-size: 0.85rem; box-shadow: var(--shadow); display: none; }
+</style>
+</head>
+<body>
+<!-- Admin Security Gate -->
+<script>
+(function checkAdminAuth() {
+  const adminAccess = localStorage.getItem('findaz_admin_access');
+  const authUserRaw = localStorage.getItem('findaz_auth_user');
+  let isAuthed = false;
+
+  if (adminAccess === 'granted') {
+    isAuthed = true;
+  } else if (authUserRaw) {
+    try {
+      const u = JSON.parse(authUserRaw);
+      if (u.role === 'admin' || u.identifier === 'admin@gmail.com') {
+        isAuthed = true;
+      }
+    } catch(e){}
+  }
+
+  // Also allow direct key access: ?key=Admin2026
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('key') === 'Admin2026' || params.get('key') === 'admin2026') {
+    localStorage.setItem('findaz_admin_access', 'granted');
+    isAuthed = true;
+  }
+
+  if (!isAuthed) {
+    alert('Access Restricted: This dashboard is reserved exclusively for the platform administrator. Please sign in with admin@gmail.com.');
+    window.location.href = 'signin.html?role=admin';
+  }
+})();
+
+function adminSignOut() {
+  localStorage.removeItem('findaz_admin_access');
+  const u = localStorage.getItem('findaz_auth_user');
+  if (u) {
+    try {
+      const user = JSON.parse(u);
+      if (user.role === 'admin') localStorage.removeItem('findaz_auth_user');
+    } catch(e){}
+  }
+  window.location.href = 'signin.html';
+}
+</script>
+
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink <span class="admin-header-badge">Admin Portal</span></a>
+    <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+      <a href="owner-dashboard.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Landlord Portal</a>
+      <button onclick="adminSignOut()" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px; cursor:pointer;">Admin Sign out</button>
+    </div>
+  </div>
+</header>
+
+<main class="account-page" style="max-width:1200px;">
+
+  <div class="account-head">
+    <div>
+      <h1>Synchro Escrow &amp; Property Certification Desk</h1>
+      <p>Human oversight desk: Verify on-site house existence before releasing tenant escrow deposits, and review landlord title deeds before publishing to tenant search.</p>
+    </div>
+  </div>
+
+  <!-- Key Metrics Row -->
+  <div class="stats-summary-grid">
+    <div class="stat-card-admin amber">
+      <p class="summary-label">Quarantined in Synchro Escrow</p>
+      <p class="summary-value" id="statEscrowHeld">KSh 18,500</p>
+      <p style="font-size:0.75rem; color:var(--ink-soft); margin-top:4px;">Protected until physical verification</p>
+    </div>
+    <div class="stat-card-admin teal">
+      <p class="summary-label">Site-Verified &amp; Ready for Release</p>
+      <p class="summary-value" id="statEscrowVerified">KSh 12,000</p>
+      <p style="font-size:0.75rem; color:var(--ink-soft); margin-top:4px;">Inspected &amp; cleared for landlord payout</p>
+    </div>
+    <div class="stat-card-admin">
+      <p class="summary-label">Released to Landlords</p>
+      <p class="summary-value" id="statEscrowReleased">KSh 7,000</p>
+      <p style="font-size:0.75rem; color:var(--ink-soft); margin-top:4px;">Completed disbursement cycles</p>
+    </div>
+    <div class="stat-card-admin">
+      <p class="summary-label">Pending Property Approvals</p>
+      <p class="summary-value" id="statPendingProps">1</p>
+      <p style="font-size:0.75rem; color:var(--ink-soft); margin-top:4px;">Landlord listings awaiting title check</p>
+    </div>
+  </div>
+
+  <!-- Action Tabs -->
+  <div class="tabs-admin">
+    <button class="tab-admin-btn active" id="btnTabEscrow" onclick="switchAdminTab('escrow')">
+      🛡️ Synchro Escrow Holds (<span id="countEscrow">3</span>)
+    </button>
+    <button class="tab-admin-btn" id="btnTabProps" onclick="switchAdminTab('properties')">
+      🏢 Property Approvals &amp; Title Verification (<span id="countProps">5</span>)
+    </button>
+  </div>
+
+  <!-- SECTION 1: SYNCHRO ESCROW HOLDS -->
+  <section id="sectionEscrow">
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:20px;">
+      <h2 style="font-size:1.15rem; margin-bottom:6px;">Tenant Deposit Safeguard (Synchro Account Workflow)</h2>
+      <p style="font-size:0.85rem; color:var(--ink-soft); line-height:1.5;">
+        Tenant money is held safely in the neutral Synchro account upon booking. 
+        <strong>Landlords cannot withdraw</strong> until an admin certifies physical house existence, verified keys, and active utility connections.
+      </p>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Hold ID &amp; Ref</th>
+            <th>Tenant (Payer)</th>
+            <th>Property &amp; Unit</th>
+            <th>Landlord / Caretaker</th>
+            <th>Escrow Amount</th>
+            <th>Status</th>
+            <th>Certification &amp; Release Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyEscrows">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PROPERTY REGISTRATIONS & APPROVALS -->
+  <section id="sectionProperties" class="hidden">
+    <div style="background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px; margin-bottom:20px;">
+      <h2 style="font-size:1.15rem; margin-bottom:6px;">Landlord Property Review &amp; Publishing Desk</h2>
+      <p style="font-size:0.85rem; color:var(--ink-soft); line-height:1.5;">
+        When a landlord registers their building or house, it is quarantined as <em>Pending Approval</em>. 
+        Once admin certifies official title deeds and parcel ownership, approve it to publish it across the tenant search pages.
+      </p>
+    </div>
+
+    <div style="overflow-x:auto;">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Property ID</th>
+            <th>Property Name</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Cadastral Parcel Title</th>
+            <th>Base Rent</th>
+            <th>Landlord Contact</th>
+            <th>Status</th>
+            <th>Review Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyProperties">
+          <!-- Populated by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<div id="adminToast" class="alert-toast">Notification message</div>
+
+<!-- Physical Site Inspection Certification Modal -->
+<div class="modal-overlay" id="certifyModal">
+  <div class="modal-box" style="max-width:440px;">
+    <button class="modal-close" onclick="closeCertifyModal()" aria-label="Close">✕</button>
+    <h2>Certify Property Existence</h2>
+    <p class="modal-sub">Physical verification for Escrow Release</p>
+    <form onsubmit="handleCertifySubmit(event)" style="margin-top:16px;">
+      <input type="hidden" id="certifyHoldId">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.82rem; font-weight:600; display:block; margin-bottom:4px;">Inspecting Admin / Officer Name</label>
+        <input type="text" id="inspectorName" value="Officer Daniel O. (NyumbaLink Field Unit)" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:0.88rem;" required>
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.82rem; font-weight:600; display:block; margin-bottom:4px;">Inspection Checklist Confirmed</label>
+        <div style="font-size:0.82rem; color:var(--ink-soft); display:flex; flex-direction:column; gap:6px;">
+          <label><input type="checkbox" checked required> Physical building exists at specified GPS coordinates</label>
+          <label><input type="checkbox" checked required> Caretaker or landlord was physically present with keys</label>
+          <label><input type="checkbox" checked required> Water borehole &amp; electricity sub-meter functional</label>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="font-size:0.82rem; font-weight:600; display:block; margin-bottom:4px;">Inspection Field Notes</label>
+        <textarea id="inspectionNotes" rows="3" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:0.88rem;" required>Confirmed unit is vacant and ready for immediate tenant occupation.</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Mark as Site-Verified</button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>NyumbaLink Admin Command Center · Synchro Escrow &amp; Multi-Role Property Verification</p>
+</footer>
+
+<script src="findaz-synchro.js"></script>
+<script>
+  let activeAdminTab = 'escrow';
+
+  function showToast(msg) {
+    const t = document.getElementById('adminToast');
+    t.textContent = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3500);
+  }
+
+  function switchAdminTab(tab) {
+    activeAdminTab = tab;
+    document.getElementById('btnTabEscrow').classList.toggle('active', tab === 'escrow');
+    document.getElementById('btnTabProps').classList.toggle('active', tab === 'properties');
+    document.getElementById('sectionEscrow').classList.toggle('hidden', tab !== 'escrow');
+    document.getElementById('sectionProperties').classList.toggle('hidden', tab !== 'properties');
+    render();
+  }
+
+  function render() {
+    const escrows = SynchroService.getEscrows();
+    const props = SynchroService.getProperties();
+
+    // Counts
+    document.getElementById('countEscrow').textContent = escrows.length;
+    document.getElementById('countProps').textContent = props.length;
+
+    // Financial Metrics
+    const heldTotal = escrows.filter(e => e.status === 'held_in_synchro').reduce((sum, e) => sum + e.amountKES, 0);
+    const verifiedTotal = escrows.filter(e => e.status === 'site_verified').reduce((sum, e) => sum + e.amountKES, 0);
+    const releasedTotal = escrows.filter(e => e.status === 'released_to_landlord').reduce((sum, e) => sum + e.amountKES, 0);
+    const pendingPropsCount = props.filter(p => p.status === 'pending_approval').length;
+
+    document.getElementById('statEscrowHeld').textContent = 'KSh ' + heldTotal.toLocaleString();
+    document.getElementById('statEscrowVerified').textContent = 'KSh ' + verifiedTotal.toLocaleString();
+    document.getElementById('statEscrowReleased').textContent = 'KSh ' + releasedTotal.toLocaleString();
+    document.getElementById('statPendingProps').textContent = pendingPropsCount;
+
+    // Render Escrows Table
+    const tbodyEscrows = document.getElementById('tbodyEscrows');
+    tbodyEscrows.innerHTML = escrows.map(e => {
+      let badgeHtml = '';
+      let actionsHtml = '';
+
+      if (e.status === 'held_in_synchro') {
+        badgeHtml = `<span class="badge-status badge-held">● Held in Synchro</span>`;
+        actionsHtml = `
+          <button class="btn-action btn-certify" onclick="openCertifyModal('${e.id}')">Certify House Exists</button>
+          <button class="btn-action btn-refund" onclick="handleRefund('${e.id}')">Refund Tenant</button>
+        `;
+      } else if (e.status === 'site_verified') {
+        badgeHtml = `<span class="badge-status badge-verified">✓ Site Verified</span>`;
+        actionsHtml = `
+          <button class="btn-action btn-release" onclick="handleRelease('${e.id}')">Release Money to Landlord</button>
+          <button class="btn-action btn-refund" onclick="handleRefund('${e.id}')">Cancel &amp; Refund</button>
+        `;
+      } else if (e.status === 'released_to_landlord') {
+        badgeHtml = `<span class="badge-status badge-released">Disbursed to Landlord</span>`;
+        actionsHtml = `<span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--teal);">Paid: ${e.mpesaRef}</span>`;
+      } else {
+        badgeHtml = `<span class="badge-status badge-refunded">Refunded to Tenant</span>`;
+        actionsHtml = `<span style="font-size:0.75rem; color:var(--ink-soft);">Dispute closed</span>`;
+      }
+
+      return `
+        <tr>
+          <td>
+            <strong>${e.id}</strong><br>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--ink-soft);">${e.mpesaRef}</span>
+          </td>
+          <td>
+            <strong>${e.tenantName}</strong><br>
+            <span style="font-size:0.75rem; color:var(--ink-soft);">${e.tenantPhone}</span>
+          </td>
+          <td>
+            <strong>${e.propertyName}</strong><br>
+            <span style="font-size:0.75rem; color:var(--purple);">${e.unitId}</span>
+          </td>
+          <td>
+            <strong>${e.landlordName}</strong><br>
+            <span style="font-size:0.75rem; color:var(--ink-soft);">${e.landlordPhone}</span>
+          </td>
+          <td>
+            <strong style="color:var(--amber);">KSh ${e.amountKES.toLocaleString()}</strong><br>
+            <span style="font-size:0.7rem; color:var(--ink-soft);">${e.paymentChannel}</span>
+          </td>
+          <td>${badgeHtml}</td>
+          <td>${actionsHtml}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // Render Properties Table
+    const tbodyProps = document.getElementById('tbodyProperties');
+    tbodyProps.innerHTML = props.map(p => {
+      let statusBadge = '';
+      let actions = '';
+
+      if (p.status === 'approved') {
+        statusBadge = `<span class="badge-status badge-verified">✓ Live on Tenant Search</span>`;
+        actions = `<span style="font-size:0.75rem; color:var(--teal); font-weight:600;">Published</span>`;
+      } else if (p.status === 'pending_approval') {
+        statusBadge = `<span class="badge-status badge-pending">Pending Title Check</span>`;
+        actions = `
+          <button class="btn-action btn-approve" onclick="handleApproveProp('${p.id}')">Approve &amp; Publish</button>
+          <button class="btn-action btn-reject" onclick="handleRejectProp('${p.id}')">Reject</button>
+        `;
+      } else {
+        statusBadge = `<span class="badge-status badge-refunded">Rejected</span>`;
+        actions = `<span style="font-size:0.75rem; color:#c53030;">Failed title verification</span>`;
+      }
+
+      return `
+        <tr>
+          <td><strong style="font-family:var(--font-mono);">${p.id}</strong></td>
+          <td>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <img src="${p.imageUrl}" alt="" style="width:36px; height:36px; border-radius:6px; object-fit:cover;">
+              <strong>${p.name}</strong>
+            </div>
+          </td>
+          <td><span style="text-transform:capitalize;">${p.category}</span></td>
+          <td><span style="font-size:0.8rem; color:var(--ink-soft);">${p.location}</span></td>
+          <td><strong style="font-family:var(--font-mono); font-size:0.75rem;">${p.cadastralTitleNo}</strong></td>
+          <td><strong style="color:var(--amber);">KSh ${p.priceKES.toLocaleString()}</strong></td>
+          <td>
+            <span>${p.landlordName}</span><br>
+            <span style="font-size:0.75rem; color:var(--ink-soft);">${p.landlordPhone}</span>
+          </td>
+          <td>${statusBadge}</td>
+          <td>${actions}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Certify modal logic
+  function openCertifyModal(holdId) {
+    document.getElementById('certifyHoldId').value = holdId;
+    document.getElementById('certifyModal').classList.add('open');
+  }
+
+  function closeCertifyModal() {
+    document.getElementById('certifyModal').classList.remove('open');
+  }
+
+  function handleCertifySubmit(e) {
+    e.preventDefault();
+    const holdId = document.getElementById('certifyHoldId').value;
+    const notes = document.getElementById('inspectionNotes').value;
+    const inspector = document.getElementById('inspectorName').value;
+
+    SynchroService.certifyPropertyExistence(holdId, notes, inspector);
+    closeCertifyModal();
+    showToast(`Property certified! Synchro hold ${holdId} is now verified and ready for landlord disbursement.`);
+    render();
+  }
+
+  function handleRelease(holdId) {
+    const res = SynchroService.releaseToLandlord(holdId);
+    if (res.success) {
+      showToast(`Funds released! Disbursed KSh ${res.hold.amountKES.toLocaleString()} to ${res.hold.landlordName} (${res.hold.landlordPhone}).`);
+      render();
+    } else {
+      alert(res.reason);
+    }
+  }
+
+  function handleRefund(holdId) {
+    if (confirm(`Are you sure you want to refund this tenant deposit to their M-Pesa account?`)) {
+      SynchroService.refundToTenant(holdId, 'Refunded by Admin: Inspection dispute or tenant cancellation.');
+      showToast(`Deposit for hold ${holdId} refunded directly to tenant.`);
+      render();
+    }
+  }
+
+  function handleApproveProp(propId) {
+    const item = SynchroService.approveProperty(propId);
+    showToast(`Property ${item.name} (${propId}) approved! It is now live on tenant dashboards.`);
+    render();
+  }
+
+  function handleRejectProp(propId) {
+    const reason = prompt('Please provide reason for rejection (e.g. Cadastral title mismatch):', 'Title deed could not be verified with county land records.');
+    if (reason) {
+      SynchroService.rejectProperty(propId, reason);
+      showToast(`Property ${propId} rejected.`);
+      render();
+    }
+  }
+
+  render();
+</script>
+</body>
+</html>

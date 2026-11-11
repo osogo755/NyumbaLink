@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wine shops — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="business.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="business.html">Business</a> <span>/</span> Wine shops
+  </div>
+
+  <div class="category-head">
+    <h1>Wine shops near you</h1>
+    <p>Wines and spirits, imported and local, at competitive prices.</p>
+  </div>
+
+  <section class="category-listings">
+
+    <a href="wine-shop.html" class="cat-card">
+      <div class="cat-media-icon c-wine">
+        <i data-icon="wine"></i>
+        <span class="badge-avail badge-overlay">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Wine shops</p>
+        <h3 class="cat-name">Vineyard Cellar</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Westlands, Nairobi</p>
+        <p class="cat-desc">Wines, whiskies, and spirits from local and imported labels.</p>
+        <p class="cat-price">beer from <span>KSh 200</span></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" onclick="return comingSoon(event)">
+      <div class="cat-media-icon c-wine">
+        <i data-icon="wine"></i>
+        <span class="badge-avail badge-overlay">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Wine shops</p>
+        <h3 class="cat-name">Kisii Wines & Spirits</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town</p>
+        <p class="cat-desc">A wide selection of wines, spirits, and local brews.</p>
+        <p class="cat-price">spirits from <span>KSh 300</span></p>
+      </div>
+    </a>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="business-icons.js"></script>
+</body>
+</html>

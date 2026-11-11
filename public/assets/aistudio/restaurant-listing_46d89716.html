@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiko ya Mama — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="listing.css">
+<link rel="stylesheet" href="restaurant-listing.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="listing-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="restaurants.html">Restaurants</a> <span>/</span> Jiko ya Mama
+  </div>
+
+
+      <div class="title-block">
+        <h1>Jiko ya Mama</h1>
+        <p class="location"><i class="icon-pin" aria-hidden="true"></i> Kisii Town · 400 m from you</p>
+      </div>
+
+  <section class="owner-details-row">
+    <div class="contact-card">
+      <p class="contact-label">Contact the restaurant</p>
+      <button class="btn btn-primary btn-full" id="revealPhoneBtn" onclick="revealPhone()">Show phone number</button>
+      <p class="phone-number" id="phoneNumber">+254 7•• ••• •••</p>
+      <p class="contact-note">Numbers are shown only after you tap reveal, to cut down on spam.</p>
+    </div>
+    <div class="payment-methods-card" id="paymentMethodsCard">
+      <p class="contact-label">Accepted payment methods</p>
+      <div class="payment-methods-list" id="paymentMethodsList">
+        <div class="payment-method-item">
+          <span class="pm-name">M-Pesa Paybill</span>
+          <span class="pm-detail">400760 · Acc: JIKOYAMAMA</span>
+        </div>
+        <div class="payment-method-item">
+          <span class="pm-name">Buy Goods</span>
+          <span class="pm-detail">Till 883322</span>
+        </div>
+      </div>
+      <p class="pm-sync-note">Set by the owner — updates automatically when they change it.</p>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="gallery-main">
+      <img id="mainImage" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&h=600&fit=crop" alt="Jiko ya Mama restaurant">
+      <span class="gallery-count" id="galleryCount">1 / 6</span>
+    </div>
+    <div class="gallery-strip" id="galleryStrip">
+      <img class="thumb active" data-index="0" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="1" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="2" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="3" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="4" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=200&h=150&fit=crop" alt="">
+      <img class="thumb more" data-index="5" src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=200&h=150&fit=crop" alt="">
+    </div>
+  </section>
+
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num" id="vacantCount">Open</span>
+          <span class="stat-label">status now</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num muted">40</span>
+          <span class="stat-label">seats</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num muted">Kenyan</span>
+          <span class="stat-label">cuisine</span>
+        </div>
+      </div>
+
+      <div class="about-block">
+        <h2>About this place</h2>
+        <p>Jiko ya Mama serves home-style Kenyan dishes — nyama choma, ugali, and traditional greens cooked the way your mother would. Open for lunch and dinner, with outdoor seating available.</p>
+      </div>
+
+      <div class="rooms-block">
+        <h2>Menu</h2>
+        <p class="fee-note rooms-fee-note">Order in person or reserve a table — payment is made directly at the restaurant.</p>
+        <div class="room-list">
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Nyama Choma (1kg)</p>
+              <span class="room-tag tag-vacant">Available</span>
+            </div>
+            <div class="room-price">KSh 900</div>
+            <button class="btn btn-primary btn-sm" onclick="openBooking('Nyama Choma (1kg)', 900)">Reserve</button>
+          </div>
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Ugali &amp; Sukuma Wiki</p>
+              <span class="room-tag tag-vacant">Available</span>
+            </div>
+            <div class="room-price">KSh 250</div>
+            <button class="btn btn-primary btn-sm" onclick="openBooking('Ugali &amp; Sukuma Wiki', 250)">Reserve</button>
+          </div>
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Tilapia Fish (whole)</p>
+              <span class="room-tag tag-vacant">Available</span>
+            </div>
+            <div class="room-price">KSh 650</div>
+            <button class="btn btn-primary btn-sm" onclick="openBooking('Tilapia Fish', 650)">Reserve</button>
+          </div>
+
+        </div>
+      </div>
+
+</main>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box" id="modalBox">
+
+    <div class="modal-step" id="stepPay">
+      <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      <h2>Reserve <span id="modalRoomName">Room A2</span></h2>
+      <p class="modal-sub">Booking amount</p>
+      <p class="modal-amount" id="modalAmount">KSh 900</p>
+
+      <p class="pay-label">Choose a payment method</p>
+      <div class="pay-options">
+        <label class="pay-option">
+          <input type="radio" name="pay" value="mpesa" checked>
+          <span>M-Pesa</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="buygoods">
+          <span>Buy goods</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="pochi">
+          <span>Pochi la Biashara</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="card">
+          <span>Card / Visa</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="confirmPayment()">Confirm payment</button>
+    </div>
+
+    <div class="modal-step hidden" id="stepConfirm">
+      <div class="tick-circle">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+          <path d="M4 12.5L9.5 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="confirm-title">Order reserved</h2>
+      <p class="modal-sub">The restaurant has been notified. Keep your payment confirmation message as proof.</p>
+      <button class="btn btn-primary btn-full" onclick="closeBooking()">Done</button>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="restaurant-listing.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="account.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign out</a>
+  </div>
+</header>
+
+<main class="account-page">
+
+  <div class="account-head">
+    <div>
+      <h1>My account</h1>
+      <p id="accountSubtitle">Signed in as a customer.</p>
+    </div>
+    <div class="role-toggle">
+      <button class="role-btn active" data-role="customer">Customer view</button>
+      <button class="role-btn" data-role="owner">Business owner view</button>
+    </div>
+  </div>
+
+  <section class="account-summary" id="customerSummary">
+    <div class="summary-card">
+      <p class="summary-label">Total spent</p>
+      <p class="summary-value">KSh 27,300</p>
+    </div>
+    <div class="summary-card">
+      <p class="summary-label">Bookings made</p>
+      <p class="summary-value">4</p>
+    </div>
+    <div class="summary-card">
+      <p class="summary-label">Account status</p>
+      <p class="summary-value free-tag">Free — always</p>
+    </div>
+  </section>
+
+  <section class="account-summary hidden" id="ownerSummary">
+    <div class="summary-card">
+      <p class="summary-label">Total sales</p>
+      <p class="summary-value">KSh 84,600</p>
+    </div>
+    <div class="summary-card">
+      <p class="summary-label">Orders received</p>
+      <p class="summary-value">11</p>
+    </div>
+    <div class="summary-card">
+      <p class="summary-label">Visibility fee</p>
+      <p class="summary-value fee-tag">Not active yet</p>
+    </div>
+  </section>
+
+  <a href="owner-dashboard.html" class="manage-card hidden" id="manageBtn">
+    <div class="manage-icon">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M3 9.5L4.5 4h15L21 9.5M3 9.5a2.5 2.5 0 005 0M8 9.5a2.5 2.5 0 005 0M13 9.5a2.5 2.5 0 005 0M4 9.8V20h16V9.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 20v-6h6v6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="manage-text">
+      <p class="manage-title">Manage your business</p>
+      <p class="manage-desc">Update your bio, payment methods, and photos</p>
+    </div>
+    <span class="manage-arrow">→</span>
+  </a>
+
+  <section class="records-section">
+    <h2 id="recordsTitle">Purchase history</h2>
+    <p class="records-note">Every record here is proof of a transaction — kept with a timestamp for your reference.</p>
+
+    <table class="records-table" id="customerTable">
+      <thead>
+        <tr><th>Item</th><th>Amount</th><th>Date &amp; time</th><th>Reference</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Room A2 deposit — Marigold Court</td><td>KSh 3,000</td><td>Aug 22, 2026 · 6:14 PM</td><td>FZ-88213</td></tr>
+        <tr><td>Baraza Hotel — 1 night</td><td>KSh 4,200</td><td>Aug 19, 2026 · 11:02 AM</td><td>FZ-88041</td></tr>
+        <tr><td>Vogue Corner — Maroon Shirt deposit</td><td>KSh 240</td><td>Aug 14, 2026 · 4:47 PM</td><td>FZ-87762</td></tr>
+        <tr><td>Jiko ya Mama — dinner</td><td>KSh 1,100</td><td>Aug 10, 2026 · 8:30 PM</td><td>FZ-87310</td></tr>
+      </tbody>
+    </table>
+
+    <table class="records-table hidden" id="ownerTable">
+      <thead>
+        <tr><th>Item</th><th>Customer</th><th>Amount</th><th>Date &amp; time</th><th>Reference</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Maroon Shirt (deposit)</td><td>+254 7•• ••• 214</td><td>KSh 240</td><td>Aug 14, 2026 · 4:47 PM</td><td>FZ-87762</td></tr>
+        <tr><td>Sand Hoodie</td><td>+254 7•• ••• 902</td><td>KSh 4,050</td><td>Aug 12, 2026 · 1:15 PM</td><td>FZ-87601</td></tr>
+        <tr><td>Classic White Tee</td><td>+254 7•• ••• 558</td><td>KSh 9,500</td><td>Aug 9, 2026 · 9:40 AM</td><td>FZ-87198</td></tr>
+        <tr><td>Indigo Slim Jeans</td><td>+254 7•• ••• 361</td><td>KSh 4,200</td><td>Aug 6, 2026 · 3:22 PM</td><td>FZ-86904</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="account.js"></script>
+</body>
+</html>

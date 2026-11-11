@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bedsitters — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, rental houses, bedsitters, courts..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> Bedsitters
+  </div>
+
+  <div class="category-head">
+    <h1>Bedsitters near you</h1>
+    <p>Single-room living, priced for students and first jobs.</p>
+  </div>
+
+
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-overlay" id="nearestCard">
+      <p class="map-overlay-label">Nearest vacant bedsitter</p>
+      <p class="map-overlay-name" id="nearestName">Locating you…</p>
+      <p class="map-overlay-dist" id="nearestDist">—</p>
+    </div>
+  
+    <button class="map-locate-btn" id="locateMeBtn" onclick="window.triggerLocateUser && window.triggerLocateUser()" aria-label="Locate my position on map">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3m0 14v3M2 12h3m14 0h3"/></svg>
+      <span>Find Vacant Houses Near Me</span>
+    </button>
+  </section>
+
+  <section class="category-listings">
+
+    <a href="bedsitter-listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=420&fit=crop" alt="Riverside Bedsitters">
+        <span class="badge-avail">2 vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Bedsitter</p>
+        <h3 class="cat-name">Riverside Bedsitters</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Ruaka, Kiambu</p>
+        <p class="cat-price">from <span>KSh 6,500</span><small>/month</small></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&h=420&fit=crop" alt="Campus View Bedsitters">
+        <span class="badge-avail">5 vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Bedsitter</p>
+        <h3 class="cat-name">Campus View Bedsitters</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Chiromo, Nairobi</p>
+        <p class="cat-price">from <span>KSh 5,800</span><small>/month</small></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&h=420&fit=crop" alt="Green Acres Bedsitters">
+        <span class="badge-avail">Booked</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Bedsitter</p>
+        <h3 class="cat-name">Green Acres Bedsitters</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town</p>
+        <p class="cat-price">from <span>KSh 4,000</span><small>/month</small></p>
+      </div>
+    </a>
+
+  </section>
+
+  <div id="tabIntro"
+       data-intro-image="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&h=900&fit=crop"
+       data-intro-eyebrow="Welcome to"
+       data-intro-title="Bedsitters"
+       data-intro-font="var(--font-mono)"
+       data-intro-activity="Riverside Bedsitters rented 1 hr ago|Campus View viewed 27 times today|Green Acres fully booked"></div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  window.FINDAZ_LISTINGS = [
+    { name: 'Riverside Bedsitters', lat: -1.1741, lng: 36.7797, available: true },
+    { name: 'Campus View Bedsitters', lat: -1.2751, lng: 36.7889, available: true },
+    { name: 'Green Acres Bedsitters', lat: -0.6820, lng: 34.7680, available: false }
+  ];
+  window.FINDAZ_NEAREST_LABEL = 'Nearest vacant bedsitter';
+</script>
+<script src="script.js"></script>
+<script src="map-listing.js"></script>
+<script src="intro.js"></script>
+</body>
+</html>

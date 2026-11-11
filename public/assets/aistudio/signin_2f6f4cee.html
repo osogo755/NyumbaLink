@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signin.css">
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+
+<main class="signin-page">
+  <a href="index.html" class="logo signin-logo">NyumbaLink</a>
+
+  <div class="signin-card" id="signinCard">
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="login">Sign in</button>
+      <button class="mode-btn" data-mode="signup">Create account</button>
+    </div>
+
+    <div class="account-type" id="accountType">
+      <p class="section-label">I am a</p>
+      <div class="type-options">
+        <label class="type-option">
+          <input type="radio" name="accountType" value="customer" checked>
+          <span class="type-title">Customer</span>
+          <span class="type-desc">Browse and book — free, always.</span>
+        </label>
+        <label class="type-option">
+          <input type="radio" name="accountType" value="owner">
+          <span class="type-title">Business owner</span>
+          <span class="type-desc">List your place or shop. A small visibility fee may apply later to help you reach more customers.</span>
+        </label>
+      </div>
+    </div>
+
+    <form class="signin-form" onsubmit="return handleSubmit(event)">
+      <label class="field-label">Phone number or email</label>
+      <input type="text" placeholder="0712 345 678 or you@email.com" required>
+
+      <label class="field-label">Password</label>
+      <input type="password" placeholder="••••••••" required>
+
+      <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Sign in</button>
+    </form>
+
+    <p class="signin-note">By continuing, you agree this is a demo flow — no real account is created yet.</p>
+  </div>
+</main>
+
+<script src="signin.js"></script>
+</body>
+</html>

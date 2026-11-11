@@ -1,0 +1,180 @@
+body { overflow-x: hidden; }
+
+/* ---------- Rolling curtain ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--purple-deep, #4A3F8C);
+  transform-origin: top;
+  animation: curtain-roll 1s cubic-bezier(0.6, 0, 0.4, 1) forwards;
+  animation-delay: 0.3s;
+  pointer-events: none;
+}
+
+@keyframes curtain-roll {
+  0%   { transform: scaleY(1); }
+  100% { transform: scaleY(0); }
+}
+
+/* ---------- Sign-in page layout ---------- */
+.signin-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--bg);
+}
+
+.signin-logo {
+  position: absolute;
+  top: 24px;
+  left: 28px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--purple-deep);
+}
+
+/* ---------- Spring-bounce card entrance ---------- */
+.signin-card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+  opacity: 0;
+  transform: translateY(140px);
+  animation: card-spring-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 1.15s;
+}
+
+@keyframes card-spring-in {
+  0%   { opacity: 0; transform: translateY(140px); }
+  10%  { opacity: 1; }
+  45%  { transform: translateY(-18px); }
+  65%  { transform: translateY(8px); }
+  82%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ---------- Mode toggle ---------- */
+.mode-toggle {
+  display: flex;
+  background: var(--bg);
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 24px;
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 10px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.mode-btn.active {
+  background: var(--surface);
+  color: var(--purple-deep);
+  box-shadow: 0 2px 6px rgba(27,22,38,0.08);
+}
+
+/* ---------- Account type ---------- */
+.account-type { margin-bottom: 24px; display: none; }
+.account-type.show { display: block; }
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.type-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.type-option {
+  position: relative;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px 12px 38px;
+  cursor: pointer;
+}
+
+.type-option input {
+  position: absolute;
+  left: 14px;
+  top: 15px;
+}
+
+.type-option:has(input:checked) {
+  border-color: var(--purple);
+  background: var(--purple-faded);
+}
+
+.type-title {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.type-desc {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+/* ---------- Form ---------- */
+.signin-form { display: flex; flex-direction: column; }
+
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 14px 0 6px;
+}
+
+.signin-form input[type="text"],
+.signin-form input[type="password"] {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.signin-form input:focus {
+  border-color: var(--purple);
+}
+
+.signin-form .btn { margin-top: 22px; }
+
+.signin-note {
+  margin-top: 16px;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .curtain { animation-duration: 0.3s; }
+  .signin-card { animation-duration: 0.4s; }
+}

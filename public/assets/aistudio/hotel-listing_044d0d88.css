@@ -1,0 +1,3 @@
+/* Baraza Hotel & Suites currently reuses listing.css entirely.
+   This file exists so future hotel-specific tweaks have a home
+   without touching the shared listing styles. */

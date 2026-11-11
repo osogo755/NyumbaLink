@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marigold Court (PROP-NAI-001) — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="listing.css">
+<style>
+  .prop-id-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(74,63,140,0.08); color: var(--purple-deep); border: 1px solid var(--purple-faded); border-radius: 6px; font-family: var(--font-mono); font-size: 0.76rem; padding: 3px 8px; margin-left: 8px; font-weight: 700; }
+  .lang-selector { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+  .lang-btn { background: none; border: 1px solid var(--border); border-radius: 999px; padding: 4px 10px; font-size: 0.76rem; font-family: var(--font-mono); cursor: pointer; color: var(--ink-soft); }
+  .lang-btn.active { background: var(--purple-deep); color: #fff; border-color: var(--purple-deep); }
+  
+  .data-grid-section { margin: 32px 0; }
+  .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .spec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+  .spec-title { font-family: var(--font-display); font-weight: 600; font-size: 1rem; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .spec-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-label { color: var(--ink-soft); }
+  .spec-value { font-family: var(--font-mono); font-weight: 600; color: var(--ink); text-align: right; }
+  
+  .breakdown-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .breakdown-table th { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--ink-soft); text-align: left; padding: 6px 0; }
+  .breakdown-table td { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; }
+  .breakdown-table tr:last-child td { border-bottom: none; font-weight: 700; }
+
+  .feedback-box { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-top: 24px; }
+  .feedback-item { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.86rem; }
+  .feedback-item:last-child { border-bottom: none; }
+  .feedback-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); margin-bottom: 4px; }
+
+  .oversight-banner { background: #FFF8EE; border: 1px solid var(--amber); border-radius: 12px; padding: 14px 18px; font-size: 0.84rem; color: #5F3700; margin-bottom: 20px; display: flex; align-items: flex-start; gap: 12px; }
+  .oversight-banner svg { flex-shrink: 0; margin-top: 2px; }
+
+  .toast-inline { background: #DEF3EC; color: #0F5A46; padding: 12px 16px; border-radius: 10px; font-size: 0.84rem; margin-top: 14px; display: none; }
+
+  @media (max-width: 768px) {
+    .grid-2col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, rental houses, bedsitters, courts..." aria-label="Search NyumbaLink">
+    </form>
+    
+    <div class="lang-selector" aria-label="Select language">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('sw')">SW</button>
+    </div>
+
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="listing-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="apartments.html">Apartments</a> <span>/</span> Marigold Court
+  </div>
+
+  <div class="title-block">
+    <div style="display:flex; align-items:baseline; flex-wrap:wrap;">
+      <h1>Marigold Court</h1>
+      <span class="prop-id-tag">PROP-NAI-001</span>
+    </div>
+    <p class="location"><i class="icon-pin" aria-hidden="true"></i> Kilimani, Nairobi · 1.2 km from you · <span style="color:var(--teal); font-weight:600;">Verified Cadastral Record</span></p>
+  </div>
+
+  <!-- Human Oversight & Fairness Governance Notice -->
+  <div class="oversight-banner" role="note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+    <div>
+      <strong id="txtOversightTitle">Human Oversight &amp; Fairness Protected:</strong>
+      <span id="txtOversightDesc">Tenant eligibility, rent setting, and unit allocation are strictly reviewed by human housing officers. Automated software assists only with records ordering and priority calculations. You have the right to review your file or appeal any decision.</span>
+    </div>
+  </div>
+
+  <section class="owner-details-row">
+    <div class="contact-card">
+      <p class="contact-label" id="txtContactLabel">Landlord &amp; Caretaker Contacts</p>
+      <button class="btn btn-primary btn-full" id="revealPhoneBtn" onclick="revealPhone()">Show Caretaker Number</button>
+      <p class="phone-number" id="phoneNumber">+254 7•• ••• •••</p>
+      <p class="contact-note">Official Landlord ID: <strong>LL-88201 (James M.)</strong> · Caretaker on-site daily 8:00 AM – 6:00 PM.</p>
+    </div>
+    <div class="payment-methods-card" id="paymentMethodsCard">
+      <p class="contact-label">Accepted Rent &amp; Deposit Channels</p>
+      <div class="payment-methods-list" id="paymentMethodsList">
+        <div class="payment-method-item">
+          <span class="pm-name">M-Pesa Paybill</span>
+          <span class="pm-detail">400200 · Acc: MARIGOLD01</span>
+        </div>
+        <div class="payment-method-item">
+          <span class="pm-name">Buy Goods Till</span>
+          <span class="pm-detail">Till 442119</span>
+        </div>
+      </div>
+      <p class="pm-sync-note">Official property account verified by bank slip &amp; M-Pesa business certificate.</p>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-main">
+      <img id="mainImage" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&h=600&fit=crop" alt="Marigold Court living room">
+      <span class="gallery-count" id="galleryCount">1 / 6</span>
+    </div>
+    <div class="gallery-strip" id="galleryStrip">
+      <img class="thumb active" data-index="0" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="1" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="2" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="3" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="4" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=200&h=150&fit=crop" alt="">
+      <img class="thumb more" data-index="5" src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=200&h=150&fit=crop" alt="">
+    </div>
+  </section>
+
+  <div class="stat-row">
+    <div class="stat">
+      <span class="stat-num" id="vacantCount">6</span>
+      <span class="stat-label">vacant units</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num muted">4</span>
+      <span class="stat-label">occupied units</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num muted">10</span>
+      <span class="stat-label">total units</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" style="color:var(--amber);">B+</span>
+      <span class="stat-label">structural grade</span>
+    </div>
+  </div>
+
+  <!-- Available Units with Consistent IDs -->
+  <div class="rooms-block">
+    <h2>Available Units (Real-time Availability)</h2>
+    <p class="fee-note rooms-fee-note">All pricing is open and binding. Holding deposit is 100% credited toward your first month's rent upon lease signing.</p>
+    
+    <div class="room-list">
+      <!-- Unit 1 -->
+      <div class="room-row">
+        <div class="room-info">
+          <p class="room-name">Unit A2 <span class="prop-id-tag">UNIT-NAI-001-A2</span> — 1-Bed Self-Contained</p>
+          <span class="room-tag tag-vacant">Vacant · Ready to move</span>
+        </div>
+        <div class="room-price">KSh 12,000<small>/month</small></div>
+        <button class="btn btn-primary btn-sm" onclick="openBooking('Unit A2 (UNIT-NAI-001-A2)', 12000)">Apply &amp; Book</button>
+      </div>
+
+      <!-- Unit 2 -->
+      <div class="room-row">
+        <div class="room-info">
+          <p class="room-name">Unit B1 <span class="prop-id-tag">UNIT-NAI-001-B1</span> — Studio Bedsitter</p>
+          <span class="room-tag tag-vacant">Vacant · Ready to move</span>
+        </div>
+        <div class="room-price">KSh 9,500<small>/month</small></div>
+        <button class="btn btn-primary btn-sm" onclick="openBooking('Unit B1 (UNIT-NAI-001-B1)', 9500)">Apply &amp; Book</button>
+      </div>
+
+      <!-- Unit 3 -->
+      <div class="room-row">
+        <div class="room-info">
+          <p class="room-name">Unit C3 <span class="prop-id-tag">UNIT-NAI-001-C3</span> — 1-Bed Self-Contained</p>
+          <span class="room-tag tag-booked">Occupied</span>
+        </div>
+        <div class="room-price">KSh 12,000<small>/month</small></div>
+        <button class="btn btn-outline btn-sm" disabled>Unavailable</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Integrated Data: Rents & Fees, Building Condition, Construction, Energy, Transport -->
+  <section class="data-grid-section">
+    <div class="grid-2col">
+      
+      <!-- Card 1: Transparent Rents & Fees Breakdown -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Open Rents &amp; Mandatory Fees</span>
+          <span class="prop-id-tag">Zero Hidden Fees</span>
+        </h3>
+        <table class="breakdown-table">
+          <thead>
+            <tr><th>Charge</th><th>Frequency</th><th>Amount</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Base Rent (Unit A2)</td><td>Monthly</td><td>KSh 12,000</td></tr>
+            <tr><td>Water (Borehole + City Council Metered)</td><td>Monthly base</td><td>KSh 500</td></tr>
+            <tr><td>Security &amp; Garbage Collection</td><td>Monthly</td><td>KSh 600</td></tr>
+            <tr><td>Electricity Token (Kenya Power Stima)</td><td>Prepaid token</td><td>Sub-metered direct</td></tr>
+            <tr><td>Refundable Security Deposit</td><td>One-time</td><td>KSh 12,000</td></tr>
+            <tr><td><strong>Total First Month Move-In</strong></td><td>Initial</td><td><strong>KSh 25,100</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="pm-sync-note" style="margin-top:10px;">Landlord may only adjust rent once every 12 months with 60 days written notice, subject to review.</p>
+      </div>
+
+      <!-- Card 2: Building Condition & Construction -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Building Condition &amp; Construction</span>
+          <span class="prop-id-tag" style="background:#DEF3EC; color:#0F5A46;">Audited 2025</span>
+        </h3>
+        <div class="spec-row">
+          <span class="spec-label">Construction Year</span>
+          <span class="spec-value">2021 (Reinforced Concrete Frame)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Structural Integrity Rating</span>
+          <span class="spec-value">Grade B+ (County Structural Board)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Fire &amp; Life Safety</span>
+          <span class="spec-value">Certified Extinguishers + Hose Reel</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Roof &amp; Waterproofing</span>
+          <span class="spec-value">Decra Tile &amp; Concrete Screed (Good)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Plumbing &amp; Water Storage</span>
+          <span class="spec-value">15,000L Underground + 5,000L Overhead</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Energy, Solar & Utilities -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Energy, Solar &amp; Utilities</span>
+          <span class="prop-id-tag">Hybrid Grid/Solar</span>
+        </h3>
+        <div class="spec-row">
+          <span class="spec-label">Power Reliability</span>
+          <span class="spec-value">Backup Generator + Solar Corridor Lights</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Water Heating</span>
+          <span class="spec-value">Individual Instant Showers</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Internet Connectivity</span>
+          <span class="spec-value">Safaricom Fibre + Zuku Ready (FTTH)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Estimated Monthly Energy Cost</span>
+          <span class="spec-value">KSh 1,200 – 2,200 per unit</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Transport & Access -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Transport &amp; Neighborhood Access</span>
+          <span class="prop-id-tag">Walkscore 88</span>
+        </h3>
+        <div class="spec-row">
+          <span class="spec-label">Nearest Matatu Stage</span>
+          <span class="spec-value">Argwings Kodhek Stage (4 mins walk)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Routes Served</span>
+          <span class="spec-value">Route 46, 56, 111 (Direct to CBD, 18 mins)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Boda Boda Base</span>
+          <span class="spec-value">At corner gate (20 meters)</span>
+        </div>
+        <div class="spec-row">
+          <span class="spec-label">Tenant Parking</span>
+          <span class="spec-value">1 Assigned slot per unit (Gated)</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Maintenance Requests & Transparent Resident Feedback -->
+  <section class="data-grid-section">
+    <div class="grid-2col">
+      
+      <!-- Maintenance Ticket Desk -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Maintenance &amp; Repair Portal</span>
+          <span class="prop-id-tag" style="color:#1F9E7C;">Active Dispatch</span>
+        </h3>
+        <p class="fee-note" style="margin-bottom:12px;">Report an issue directly to property maintenance. Every ticket receives an immutable tracking code and 24h SLA.</p>
+        
+        <form onsubmit="submitMaintenanceTicket(event)">
+          <div style="margin-bottom:10px;">
+            <label style="font-size:0.8rem; font-weight:600;">Unit ID</label>
+            <input type="text" id="maintUnit" value="UNIT-NAI-001-A2" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-family:var(--font-mono); font-size:0.85rem;" required>
+          </div>
+          <div style="margin-bottom:10px;">
+            <label style="font-size:0.8rem; font-weight:600;">Issue Category</label>
+            <select id="maintCategory" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.85rem;">
+              <option value="plumbing">Plumbing / Water Supply</option>
+              <option value="electrical">Electrical / Power Token Meter</option>
+              <option value="structural">Door / Window / Locks</option>
+              <option value="general">Common Area / Garbage</option>
+            </select>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label style="font-size:0.8rem; font-weight:600;">Description of Issue</label>
+            <textarea id="maintDesc" rows="2" placeholder="Describe the issue..." style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.85rem;" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">Submit Work Order</button>
+        </form>
+
+        <div id="maintNotice" class="toast-inline">Work order registered! Tracking ID: <strong id="ticketId">TKT-9921</strong>. Caretaker notified.</div>
+      </div>
+
+      <!-- Resident Feedback & Corrections -->
+      <div class="spec-card">
+        <h3 class="spec-title">
+          <span>Resident Feedback &amp; Record Correction</span>
+          <span class="prop-id-tag">Privacy &amp; Fairness</span>
+        </h3>
+        <p class="fee-note" style="margin-bottom:12px;">Residents have the statutory right to challenge inaccurate records, report disputes, or request correction of rent accounts.</p>
+        
+        <div class="feedback-item">
+          <p class="feedback-meta">Unit B3 · Verified Resident · 3 days ago</p>
+          <p>"Overhead water tank pump switch was fixed within 3 hours of submission. Good response by caretaker."</p>
+        </div>
+        <div class="feedback-item">
+          <p class="feedback-meta">Unit A1 · Verified Resident · 1 week ago</p>
+          <p>"Disputed electricity sub-meter balance was investigated and adjusted with human officer sign-off."</p>
+        </div>
+
+        <div style="margin-top:16px;">
+          <a href="#" onclick="openDisputeModal(event)" class="btn btn-outline btn-sm" style="font-size:0.78rem;">Submit Challenge or Data Correction</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Application & Holding Deposit Modal -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box" id="modalBox">
+
+    <div class="modal-step" id="stepPay">
+      <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      <h2>Apply for <span id="modalRoomName">Unit A2</span></h2>
+      <p class="modal-sub">Holding Deposit (100% credited toward first month's rent)</p>
+      <p class="modal-amount" id="modalAmount">KSh 12,000</p>
+
+      <!-- Privacy & Fairness Disclosure -->
+      <div style="background:var(--bg); border-radius:10px; padding:12px; margin-bottom:14px; font-size:0.78rem; color:var(--ink-soft);">
+        <p><strong>Privacy Shield:</strong> We collect only necessary contact details. Your data is used exclusively for tenancy eligibility review by the verified landlord.</p>
+      </div>
+
+      <div style="margin-bottom:12px;">
+        <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:4px;">Applicant Full Legal Name</label>
+        <input type="text" id="applicantName" placeholder="e.g. Grace Wanjiku" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:0.88rem;" required>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.8rem; font-weight:600; display:block; margin-bottom:4px;">National ID or Passport Number</label>
+        <input type="text" id="applicantID" placeholder="e.g. 29482710" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:8px; font-size:0.88rem;" required>
+      </div>
+
+      <p class="pay-label">Deposit Payment Channel</p>
+      <div class="pay-options">
+        <label class="pay-option">
+          <input type="radio" name="pay" value="mpesa" checked>
+          <span>M-Pesa Paybill</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="buygoods">
+          <span>Buy Goods Till</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="pochi">
+          <span>Pochi la Biashara</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="card">
+          <span>Bank Wire / Card</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="confirmPayment()">Submit Tenancy Application</button>
+    </div>
+
+    <div class="modal-step hidden" id="stepConfirm">
+      <div class="tick-circle">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+          <path d="M4 12.5L9.5 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="confirm-title">Application Registered</h2>
+      <p class="modal-sub">Your application reference is <strong>APP-MAR-8921</strong>. The human housing officer and landlord will complete identity verification within 4 business hours.</p>
+      <button class="btn btn-primary btn-full" onclick="closeBooking()">View Application Status</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Dispute & Record Correction Modal -->
+<div class="modal-overlay" id="disputeModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeDisputeModal()" aria-label="Close">✕</button>
+    <h2>Challenge Record or Request Correction</h2>
+    <p class="modal-sub">Protected under Resident Fairness &amp; Data Rights</p>
+    <form onsubmit="submitDispute(event)" style="margin-top:16px;">
+      <div style="margin-bottom:10px;">
+        <label style="font-size:0.8rem; font-weight:600;">Your Unit / Reference ID</label>
+        <input type="text" id="disputeUnit" placeholder="e.g. UNIT-NAI-001-A2 or APP-8921" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.86rem;" required>
+      </div>
+      <div style="margin-bottom:10px;">
+        <label style="font-size:0.8rem; font-weight:600;">Type of Dispute</label>
+        <select style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.86rem;">
+          <option>Rent balance discrepancy</option>
+          <option>Inaccurate maintenance log</option>
+          <option>Eligibility or background correction</option>
+          <option>Notice or fee challenge</option>
+        </select>
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:0.8rem; font-weight:600;">Details &amp; Evidence</label>
+        <textarea rows="3" placeholder="Please detail what is incorrect and what it should be..." style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.86rem;" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-full">Submit for Human Review</button>
+    </form>
+    <div id="disputeNotice" class="toast-inline">Case file created (DISP-4402). A human officer must respond within 48 hours.</div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="findaz-synchro.js"></script>
+<script src="listing.js"></script>
+<script>
+  // Bilingual support (English & Swahili)
+  const TRANSLATIONS = {
+    en: {
+      contact: 'Landlord & Caretaker Contacts',
+      oversightTitle: 'Human Oversight & Fairness Protected:',
+      oversightDesc: 'Tenant eligibility, rent setting, and unit allocation are strictly reviewed by human housing officers. Automated software assists only with records ordering and priority calculations. You have the right to review your file or appeal any decision.'
+    },
+    sw: {
+      contact: 'Mawasiliano ya Mwenye Nyumba na Msimamizi',
+      oversightTitle: 'Usimamizi wa Kibinadamu na Haki Umehifadhiwa:',
+      oversightDesc: 'Uamuzi wa kukubaliwa kupangishwa, mabadiliko ya kodi na upangaji vyumba hufanywa na maafisa wa kibinadamu. Mifumo ya kompyuta inasaidia tu kupanga kumbukumbu. Una haki ya kuomba marekebisho ya kumbukumbu zako.'
+    }
+  };
+
+  function setLang(lang) {
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+    });
+    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    document.getElementById('txtContactLabel').textContent = t.contact;
+    document.getElementById('txtOversightTitle').textContent = t.oversightTitle;
+    document.getElementById('txtOversightDesc').textContent = t.oversightDesc;
+  }
+
+  function submitMaintenanceTicket(e) {
+    e.preventDefault();
+    const notice = document.getElementById('maintNotice');
+    notice.style.display = 'block';
+    setTimeout(() => { notice.style.display = 'none'; }, 4000);
+  }
+
+  function openDisputeModal(e) {
+    e.preventDefault();
+    document.getElementById('disputeModal').classList.add('open');
+  }
+
+  function closeDisputeModal() {
+    document.getElementById('disputeModal').classList.remove('open');
+  }
+
+  function submitDispute(e) {
+    e.preventDefault();
+    const notice = document.getElementById('disputeNotice');
+    notice.style.display = 'block';
+    setTimeout(() => {
+      notice.style.display = 'none';
+      closeDisputeModal();
+    }, 2500);
+  }
+</script>
+</body>
+</html>

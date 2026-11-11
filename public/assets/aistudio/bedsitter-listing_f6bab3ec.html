@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Riverside Bedsitters — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="listing.css">
+<link rel="stylesheet" href="bedsitter-listing.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="#" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="listing-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> <a href="bedsitters.html">Bedsitters</a> <span>/</span> Riverside Bedsitters
+  </div>
+
+
+      <div class="title-block">
+        <h1>Riverside Bedsitters</h1>
+        <p class="location"><i class="icon-pin" aria-hidden="true"></i> Ruaka, Kiambu · 3.8 km from you</p>
+      </div>
+
+  <section class="owner-details-row">
+    <div class="contact-card">
+      <p class="contact-label">Contact the caretaker</p>
+      <button class="btn btn-primary btn-full" id="revealPhoneBtn" onclick="revealPhone()">Show phone number</button>
+      <p class="phone-number" id="phoneNumber">+254 7•• ••• •••</p>
+      <p class="contact-note">Numbers are shown only after you tap reveal, to cut down on spam.</p>
+    </div>
+    <div class="payment-methods-card" id="paymentMethodsCard">
+      <p class="contact-label">Accepted payment methods</p>
+      <div class="payment-methods-list" id="paymentMethodsList">
+        <div class="payment-method-item">
+          <span class="pm-name">M-Pesa Paybill</span>
+          <span class="pm-detail">220441 · Acc: RIVERSIDE</span>
+        </div>
+        <div class="payment-method-item">
+          <span class="pm-name">Buy Goods</span>
+          <span class="pm-detail">Till 993015</span>
+        </div>
+      </div>
+      <p class="pm-sync-note">Set by the owner — updates automatically when they change it.</p>
+    </div>
+  </section>
+
+  <section class="gallery" id="gallery">
+    <div class="gallery-main">
+      <img id="mainImage" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&h=600&fit=crop" alt="Riverside Bedsitters exterior">
+      <span class="gallery-count" id="galleryCount">1 / 6</span>
+    </div>
+    <div class="gallery-strip" id="galleryStrip">
+      <img class="thumb active" data-index="0" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="1" src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="2" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="3" src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&h=150&fit=crop" alt="">
+      <img class="thumb" data-index="4" src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=200&h=150&fit=crop" alt="">
+      <img class="thumb more" data-index="5" src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=200&h=150&fit=crop" alt="">
+    </div>
+  </section>
+
+      <div class="stat-row">
+        <div class="stat">
+          <span class="stat-num" id="vacantCount">2</span>
+          <span class="stat-label">vacant rooms</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num muted">3</span>
+          <span class="stat-label">booked rooms</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num muted">5</span>
+          <span class="stat-label">total rooms</span>
+        </div>
+      </div>
+
+      <div class="about-block">
+        <h2>About this place</h2>
+        <p>Riverside Bedsitters offers compact, self-contained single-room units a short walk from the river footbridge into Ruaka town. Popular with students and young professionals starting out. Water is available 24/7 with a backup borehole.</p>
+      </div>
+
+      <div class="rooms-block">
+        <h2>Available rooms</h2>
+        <p class="fee-note rooms-fee-note">Pay a booking fee directly to the caretaker to hold a room. Amount is set per room above.</p>
+        <div class="room-list">
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Unit 1 — Self-contained bedsitter</p>
+              <span class="room-tag tag-vacant">Vacant</span>
+            </div>
+            <div class="room-price">KSh 6,500<small>/month</small></div>
+            <button class="btn btn-primary btn-sm" onclick="openBooking('Unit 1', 6500)">Book</button>
+          </div>
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Unit 2 — Self-contained bedsitter</p>
+              <span class="room-tag tag-vacant">Vacant</span>
+            </div>
+            <div class="room-price">KSh 6,800<small>/month</small></div>
+            <button class="btn btn-primary btn-sm" onclick="openBooking('Unit 2', 6800)">Book</button>
+          </div>
+
+          <div class="room-row">
+            <div class="room-info">
+              <p class="room-name">Unit 3 — Self-contained bedsitter</p>
+              <span class="room-tag tag-booked">Booked</span>
+            </div>
+            <div class="room-price">KSh 7,200<small>/month</small></div>
+            <button class="btn btn-outline btn-sm" disabled>Unavailable</button>
+          </div>
+
+        </div>
+      </div>
+
+</main>
+
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal-box" id="modalBox">
+
+    <div class="modal-step" id="stepPay">
+      <button class="modal-close" onclick="closeBooking()" aria-label="Close">✕</button>
+      <h2>Book <span id="modalRoomName">Room A2</span></h2>
+      <p class="modal-sub">Booking amount</p>
+      <p class="modal-amount" id="modalAmount">KSh 6,500</p>
+
+      <p class="pay-label">Choose a payment method</p>
+      <div class="pay-options">
+        <label class="pay-option">
+          <input type="radio" name="pay" value="mpesa" checked>
+          <span>M-Pesa</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="buygoods">
+          <span>Buy goods</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="pochi">
+          <span>Pochi la Biashara</span>
+        </label>
+        <label class="pay-option">
+          <input type="radio" name="pay" value="card">
+          <span>Card / Visa</span>
+        </label>
+      </div>
+
+      <button class="btn btn-primary btn-full" onclick="confirmPayment()">Confirm payment</button>
+    </div>
+
+    <div class="modal-step hidden" id="stepConfirm">
+      <div class="tick-circle">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+          <path d="M4 12.5L9.5 18L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="confirm-title">Room booked</h2>
+      <p class="modal-sub">The caretaker has been notified. Keep your payment confirmation message as proof.</p>
+      <button class="btn btn-primary btn-full" onclick="closeBooking()">Done</button>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="bedsitter-listing.js"></script>
+</body>
+</html>

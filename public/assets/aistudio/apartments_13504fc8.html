@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apartments — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> Apartments
+  </div>
+
+  <div class="category-head">
+    <h1>Apartments near you</h1>
+    <p>Real vacancies, real prices — no calling around to check.</p>
+  </div>
+
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-overlay" id="nearestCard">
+      <p class="map-overlay-label">Nearest vacant apartment</p>
+      <p class="map-overlay-name" id="nearestName">Locating you…</p>
+      <p class="map-overlay-dist" id="nearestDist">—</p>
+    </div>
+  </section>
+
+  <section class="category-listings">
+
+    <a href="listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=420&fit=crop" alt="Marigold Court exterior">
+        <span class="badge-avail">6 vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Apartment</p>
+        <h3 class="cat-name">Marigold Court</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kilimani, Nairobi</p>
+        <p class="cat-price">from <span>KSh 12,000</span><small>/month</small></p>
+      </div>
+    </a>
+
+    <a href="listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=420&fit=crop" alt="Baraza Apartments exterior">
+        <span class="badge-avail">3 vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Apartment</p>
+        <h3 class="cat-name">Baraza Apartments</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Westlands, Nairobi</p>
+        <p class="cat-price">from <span>KSh 15,500</span><small>/month</small></p>
+      </div>
+    </a>
+
+    <a href="listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&h=420&fit=crop" alt="Neema Heights exterior">
+        <span class="badge-avail">1 vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Apartment</p>
+        <h3 class="cat-name">Neema Heights</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> South B, Nairobi</p>
+        <p class="cat-price">from <span>KSh 10,800</span><small>/month</small></p>
+      </div>
+    </a>
+
+    <a href="listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&h=420&fit=crop" alt="Cedar Court exterior">
+        <span class="badge-avail">Booked</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Apartment</p>
+        <h3 class="cat-name">Cedar Court</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Lavington, Nairobi</p>
+        <p class="cat-price">from <span>KSh 18,000</span><small>/month</small></p>
+      </div>
+    </a>
+
+  </section>
+
+  <div id="tabIntro"
+       data-intro-image="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&h=900&fit=crop"
+       data-intro-eyebrow="Welcome to"
+       data-intro-title="Apartments"
+       data-intro-font="var(--font-mono)"
+       data-intro-activity="Westland flats rented 2 hrs ago|3-bed in Kilimani booked just now|Marigold Court viewed 18 times today"></div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+<script src="category.js"></script>
+<script src="intro.js"></script>
+</body>
+</html>

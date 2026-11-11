@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutiques — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,600&family=Cormorant+Garamond:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> Boutiques
+  </div>
+
+  <div class="category-head category-head-row">
+    <div>
+      <h1>Boutiques near you</h1>
+      <p>Registered boutique businesses, listed A–Z. Real stock, real prices.</p>
+    </div>
+    <form class="boutique-search" role="search" onsubmit="return false">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" id="boutiqueSearch" placeholder="Search registered boutique business..." aria-label="Search registered boutique business">
+    </form>
+  </div>
+
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-overlay" id="nearestCard">
+      <p class="map-overlay-label">Nearest open boutique</p>
+      <p class="map-overlay-name" id="nearestName">Locating you…</p>
+      <p class="map-overlay-dist" id="nearestDist">—</p>
+    </div>
+  </section>
+  <p class="map-note">Green line shows the route to the nearest open boutique. You'll get a notification if you come within 300m of any registered boutique while this tab is open.</p>
+
+  <section class="category-listings">
+
+    <a href="shop.html?status=closed" class="cat-card" data-name="Mtumba Deals">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=600&h=420&fit=crop" alt="Mtumba Deals boutique">
+        <span class="badge-avail">Closed</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Boutique</p>
+        <h3 class="cat-name">Mtumba Deals</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kilimani, Nairobi</p>
+        <p class="cat-desc">Quality second-hand fashion at everyday prices. Opens again at 8am.</p>
+        <p class="cat-price">from <span>KSh 300</span></p>
+      </div>
+    </a>
+
+    <a href="shop.html" class="cat-card" data-name="Threads & Co">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&h=420&fit=crop" alt="Threads and Co boutique">
+        <span class="badge-avail">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Boutique</p>
+        <h3 class="cat-name">Threads &amp; Co</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Westlands, Nairobi</p>
+        <p class="cat-desc">Curated designer pieces and tailored fits for work and evening wear.</p>
+        <p class="cat-price">dresses from <span>KSh 3,200</span></p>
+      </div>
+    </a>
+
+    <a href="shop.html" class="cat-card" data-name="Vogue Corner">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=420&fit=crop" alt="Vogue Corner boutique">
+        <span class="badge-avail">Open now</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Boutique</p>
+        <h3 class="cat-name">Vogue Corner</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town</p>
+        <p class="cat-desc">Women's and men's ready-to-wear — shirts, dresses, and accessories restocked weekly.</p>
+        <p class="cat-price">shirts from <span>KSh 800</span></p>
+      </div>
+    </a>
+
+  </section>
+
+  <div id="tabIntro"
+       data-intro-image="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1200&h=900&fit=crop"
+       data-intro-eyebrow="Welcome to"
+       data-intro-title="Boutiques"
+       data-intro-font="'Cormorant Garamond', serif"
+       data-intro-activity="Maroon shirt purchased 5 mins ago|Vogue Corner — dress reserved 12 mins ago|Threads &amp; Co viewed 30 times today"></div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+<script>
+  window.FINDAZ_LISTINGS = [
+    { name: 'Mtumba Deals', lat: -1.2921, lng: 36.7820, available: false },
+    { name: 'Threads & Co', lat: -1.2673, lng: 36.8065, available: true },
+    { name: 'Vogue Corner', lat: -0.6820, lng: 34.7680, available: true }
+  ];
+  window.FINDAZ_NEAREST_LABEL = 'Nearest open boutique';
+</script>
+<script src="script.js"></script>
+<script src="boutique-directory.js"></script>
+<script src="map-listing.js"></script>
+<script src="intro.js"></script>
+</body>
+</html>

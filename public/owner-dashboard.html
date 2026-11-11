@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landlord Portal & Property Registration — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="account.css">
+<link rel="stylesheet" href="listing.css">
+<style>
+  .dash-container { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; }
+  .dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 24px; box-shadow: var(--shadow); }
+  .form-group { margin-bottom: 20px; }
+  .form-group label { display: block; font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--ink); }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-family: var(--font-body); font-size: 0.92rem; outline: none; background: var(--bg); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--purple-deep); background: #fff; }
+  .notice { background: var(--teal-light); color: #0F5A46; padding: 14px 18px; border-radius: 12px; margin-bottom: 24px; font-size: 0.88rem; }
+  
+  .badge-prop-status { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; }
+  .badge-prop-approved { background: #DEF3EC; color: #0F5A46; border: 1px solid #1F9E7C; }
+  .badge-prop-pending { background: #FFF4D9; color: #734A00; border: 1px solid #E8952F; }
+  .badge-prop-rejected { background: #FFF0F2; color: #9B1C1C; border: 1px solid #F8B4B4; }
+
+  .prop-list-item { display: flex; align-items: center; gap: 16px; padding: 16px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; background: var(--bg); }
+  .prop-thumb { width: 70px; height: 55px; border-radius: 8px; object-fit: cover; }
+  .prop-meta { flex: 1; }
+  .synchro-notice-box { background: linear-gradient(135deg, rgba(74,63,140,0.06), rgba(31,158,124,0.06)); border: 1px solid var(--purple-faded); border-radius: 14px; padding: 20px; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--purple-deep); background:rgba(74,63,140,0.09); padding:3px 8px; border-radius:999px; margin-left:6px;">Landlord Hub</span></a>
+    <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
+      <a href="index.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Marketplace</a>
+      <a href="signin.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<main class="dash-container">
+  
+  <div class="account-head">
+    <div>
+      <h1>Landlord Dashboard &amp; House Registration</h1>
+      <p>Register your properties, track Synchro escrow tenant payouts, and manage certified listings.</p>
+    </div>
+  </div>
+
+  <div id="saveNotice" class="notice" style="display:none;">Action completed successfully!</div>
+
+  <!-- Synchro Escrow Payout Explainer -->
+  <div class="synchro-notice-box">
+    <h3 style="font-size:1rem; font-family:var(--font-display); margin-bottom:6px; color:var(--purple-deep); display:flex; align-items:center; gap:8px;">
+      <span>🔒 Protected by NyumbaLink Synchro Escrow</span>
+    </h3>
+    <p style="font-size:0.85rem; color:var(--ink-soft); line-height:1.5;">
+      When a tenant reserves a unit in your property, their deposit is securely quarantined in the neutral <strong>Synchro Escrow Account</strong>. 
+      Once our field admin conducts the physical verification certifying that your house exists and unit keys are ready, the funds are immediately disbursed to your designated M-Pesa account.
+    </p>
+  </div>
+
+  <!-- SECTION 1: REGISTER A NEW HOUSE / PROPERTY -->
+  <div class="dash-card">
+    <h2 style="margin-bottom: 8px;">Register Your House / Property</h2>
+    <p style="font-size:0.84rem; color:var(--ink-soft); margin-bottom:20px;">
+      New houses are sent to the <strong>Admin Approval Queue</strong>. After admin checks the cadastral title and confirms physical existence, your listing goes live on the tenant search dashboard!
+    </p>
+
+    <form id="propertyRegForm" onsubmit="handlePropertyRegister(event)">
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+        <div class="form-group">
+          <label>House / Building Name</label>
+          <input type="text" id="regPropName" placeholder="e.g. Kilimani Heights" required>
+        </div>
+        <div class="form-group">
+          <label>Rental Category</label>
+          <select id="regCategory" required>
+            <option value="apartments">Apartments</option>
+            <option value="bedsitters">Bedsitters</option>
+            <option value="courts">Courts (Courtyard Units)</option>
+            <option value="rentals">Rental Houses (Standalone)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+        <div class="form-group">
+          <label>Location &amp; Area</label>
+          <input type="text" id="regLocation" placeholder="e.g. Kilimani, Nairobi · Wood Avenue" required>
+        </div>
+        <div class="form-group">
+          <label>Official Title Deed / Cadastral Parcel No.</label>
+          <input type="text" id="regTitleNo" placeholder="e.g. NAIROBI/BLOCK88/902B" required>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px;">
+        <div class="form-group">
+          <label>Monthly Rent (Starting from KSh)</label>
+          <input type="number" id="regPrice" placeholder="12000" min="1000" required>
+        </div>
+        <div class="form-group">
+          <label>Total Units</label>
+          <input type="number" id="regUnitsCount" placeholder="8" min="1" required>
+        </div>
+        <div class="form-group">
+          <label>Currently Vacant Units</label>
+          <input type="number" id="regVacantCount" placeholder="3" min="0" required>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+        <div class="form-group">
+          <label>Landlord / Caretaker Full Name</label>
+          <input type="text" id="regLandlordName" value="James M. (Landlord)" required>
+        </div>
+        <div class="form-group">
+          <label>M-Pesa Disbursal Phone Number</label>
+          <input type="text" id="regLandlordPhone" value="+254 712 345 678" required>
+        </div>
+      </div>
+
+      <div class="form-group" style="background:var(--bg); border:1px dashed var(--border); border-radius:12px; padding:18px;">
+        <label style="margin-bottom:6px;">Property Exterior Photo (Camera / Gallery)</label>
+        <p style="font-size:0.8rem; color:var(--ink-soft); margin-bottom:14px;">Capture a live photo using your phone camera, or choose an image directly from your gallery.</p>
+        
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <!-- Live Camera Button -->
+          <label class="btn btn-primary" style="font-size:0.82rem; padding:9px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>Take Photo (Camera)</span>
+            <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoUpload(event)">
+          </label>
+
+          <!-- Gallery Upload Button -->
+          <label class="btn btn-ghost" style="font-size:0.82rem; padding:9px 16px; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Choose from Gallery</span>
+            <input type="file" id="galleryInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload(event)">
+          </label>
+        </div>
+
+        <!-- Hidden input holding the base64 or preview image data -->
+        <input type="hidden" id="regImageUrl" value="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=420&fit=crop">
+
+        <!-- Interactive Photo Preview -->
+        <div id="photoPreviewContainer" style="margin-top:14px; display:flex; align-items:center; gap:12px;">
+          <img id="photoPreviewImg" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=420&fit=crop" alt="Property preview" style="width:90px; height:65px; border-radius:8px; object-fit:cover; border:2px solid var(--purple-deep);">
+          <div>
+            <p id="photoStatusText" style="font-size:0.82rem; font-weight:600; color:var(--teal);">Default sample photo loaded</p>
+            <p style="font-size:0.75rem; color:var(--ink-soft);">Tap take photo or browse gallery to replace</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Detailed Property Description &amp; Amenities</label>
+        <textarea id="regDescription" rows="3" placeholder="Describe the compound, water availability, security, road access..." required>Modern self-contained units with reliable borehole water, backup generator, prepaid Kenya Power tokens, and 24/7 security guard.</textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-full">Submit Property for Admin Approval</button>
+    </form>
+  </div>
+
+  <!-- SECTION 2: MY REGISTERED HOUSES & APPROVAL STATUS -->
+  <div class="dash-card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+      <div>
+        <h2>My Properties &amp; Verification Status</h2>
+        <p style="font-size:0.82rem; color:var(--ink-soft);">Only approved houses appear on the public tenant search dashboard.</p>
+      </div>
+      <button class="btn btn-ghost" style="font-size:0.75rem; padding:6px 12px;" onclick="renderLandlordView()">Refresh</button>
+    </div>
+
+    <div id="landlordPropsList">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  <!-- SECTION 3: SYNCHRO ESCROW PAYOUTS FOR THIS LANDLORD -->
+  <div class="dash-card">
+    <h2 style="margin-bottom:8px;">Tenant Deposits in Synchro Escrow</h2>
+    <p style="font-size:0.82rem; color:var(--ink-soft); margin-bottom:18px;">
+      Deposits currently quarantined by the platform. Admin will release funds once on-site inspection passes.
+    </p>
+
+    <div id="landlordEscrowList">
+      <!-- Injected by JavaScript -->
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 24px;">
+    <a href="apartments.html" class="btn btn-ghost" style="margin-right: 12px;">Preview Public Listings</a>
+    <a href="#propertyRegForm" class="btn btn-primary">Register Another Property</a>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="findaz-synchro.js"></script>
+<script>
+  
+  function handlePhotoUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('Please select a valid image file (JPG, PNG, WebP).');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const base64Data = e.target.result;
+      document.getElementById('regImageUrl').value = base64Data;
+      document.getElementById('photoPreviewImg').src = base64Data;
+      document.getElementById('photoStatusText').textContent = 'Custom photo ready: ' + (file.name || 'Captured from Camera');
+      document.getElementById('photoStatusText').style.color = 'var(--teal)';
+      showToast('Photo captured successfully and ready for submission!');
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function showToast(msg) {
+    const n = document.getElementById('saveNotice');
+    n.textContent = msg;
+    n.style.display = 'block';
+    setTimeout(() => { n.style.display = 'none'; }, 4000);
+  }
+
+  function handlePropertyRegister(e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('regPropName').value,
+      category: document.getElementById('regCategory').value,
+      location: document.getElementById('regLocation').value,
+      cadastralTitleNo: document.getElementById('regTitleNo').value,
+      priceKES: document.getElementById('regPrice').value,
+      unitsCount: document.getElementById('regUnitsCount').value,
+      vacantCount: document.getElementById('regVacantCount').value,
+      landlordName: document.getElementById('regLandlordName').value,
+      landlordPhone: document.getElementById('regLandlordPhone').value,
+      imageUrl: document.getElementById('regImageUrl').value,
+      description: document.getElementById('regDescription').value
+    };
+
+    const newProp = SynchroService.registerProperty(data);
+    showToast(`Property "${newProp.name}" registered! Tracking ID: ${newProp.id}. It is now awaiting Admin Title & Site Certification.`);
+    document.getElementById('regPropName').value = '';
+    document.getElementById('regLocation').value = '';
+    document.getElementById('regTitleNo').value = '';
+    renderLandlordView();
+  }
+
+  function renderLandlordView() {
+    const props = SynchroService.getProperties();
+    const escrows = SynchroService.getEscrows();
+
+    // Render Properties
+    const propContainer = document.getElementById('landlordPropsList');
+    if (!props.length) {
+      propContainer.innerHTML = '<p style="color:var(--ink-soft); font-size:0.88rem;">No properties registered yet.</p>';
+    } else {
+      propContainer.innerHTML = props.map(p => {
+        let badge = '';
+        if (p.status === 'approved') {
+          badge = `<span class="badge-prop-status badge-prop-approved">✓ Approved &amp; Live on Tenant Dashboard</span>`;
+        } else if (p.status === 'pending_approval') {
+          badge = `<span class="badge-prop-status badge-prop-pending">⏳ Pending Admin Title Certification</span>`;
+        } else {
+          badge = `<span class="badge-prop-status badge-prop-rejected">✕ Rejected: ${p.rejectionReason || 'Documentation issue'}</span>`;
+        }
+
+        return `
+          <div class="prop-list-item">
+            <img src="${p.imageUrl}" alt="" class="prop-thumb">
+            <div class="prop-meta">
+              <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap;">
+                <strong>${p.name}</strong>
+                <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--purple-deep);">${p.id}</span>
+              </div>
+              <p style="font-size:0.82rem; color:var(--ink-soft); margin:2px 0;">
+                ${p.location} · Title Parcel: <strong>${p.cadastralTitleNo}</strong>
+              </p>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px; flex-wrap:wrap; gap:8px;">
+                <span style="font-family:var(--font-mono); font-weight:700; color:var(--amber);">from KSh ${p.priceKES.toLocaleString()}/mo (${p.vacantCount} vacant)</span>
+                ${badge}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Escrows
+    const escrowContainer = document.getElementById('landlordEscrowList');
+    if (!escrows.length) {
+      escrowContainer.innerHTML = '<p style="color:var(--ink-soft); font-size:0.88rem;">No tenant deposits currently held.</p>';
+    } else {
+      escrowContainer.innerHTML = escrows.map(e => {
+        let statusBadge = '';
+        if (e.status === 'held_in_synchro') {
+          statusBadge = '<span class="badge-prop-status badge-prop-pending">● Quarantined in Synchro (Admin verifying house)</span>';
+        } else if (e.status === 'site_verified') {
+          statusBadge = '<span class="badge-prop-status badge-prop-approved">✓ Site Verified (Ready for Disbursal)</span>';
+        } else if (e.status === 'released_to_landlord') {
+          statusBadge = '<span class="badge-prop-status badge-prop-approved" style="background:#E7DFF3; color:#4A3F8C;">Disbursed to your M-Pesa</span>';
+        } else {
+          statusBadge = '<span class="badge-prop-status badge-prop-rejected">Refunded to Tenant</span>';
+        }
+
+        return `
+          <div style="padding:14px; border:1px solid var(--border); border-radius:12px; margin-bottom:10px; background:var(--bg);">
+            <div style="display:flex; justify-content:space-between; align-items:baseline;">
+              <strong>${e.propertyName} — ${e.unitId}</strong>
+              <strong style="color:var(--amber); font-family:var(--font-mono);">KSh ${e.amountKES.toLocaleString()}</strong>
+            </div>
+            <p style="font-size:0.8rem; color:var(--ink-soft); margin:4px 0;">
+              Tenant: <strong>${e.tenantName}</strong> (${e.tenantPhone}) · Ref: <span style="font-family:var(--font-mono);">${e.id}</span>
+            </p>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; flex-wrap:wrap; gap:8px;">
+              <span style="font-size:0.75rem; color:var(--ink-soft);">${e.inspectionNotes || ''}</span>
+              ${statusBadge}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  renderLandlordView();
+</script>
+</body>
+</html>

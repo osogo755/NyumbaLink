@@ -1,0 +1,6 @@
+{
+  "name": "Findaz - Africa to the World Marketplace",
+  "description": "Africa's everyday marketplace for rentals, apartments, hotels, resorts, clinics, and local business shops.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

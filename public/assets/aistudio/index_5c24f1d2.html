@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NyumbaLink — Search affordable life, from Africa to the world</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#top" class="logo">NyumbaLink</a>
+
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="top" class="hero">
+    <p class="hero-eyebrow">Africa's everyday marketplace</p>
+    <h1 class="hero-title">Search affordable life<br>from Africa to the world</h1>
+    <p class="hero-sub">Rentals, hotels, restaurants and local shops — all in one place, priced in the open.</p>
+
+    <nav class="tab-track" aria-label="Browse categories">
+      <div class="tab-scroll" id="tabScroll">
+        <button class="tab fx-liquid" data-cat="apartments" data-href="apartments.html">Apartments</button>
+        <button class="tab fx-liquid" data-cat="courts" data-href="courts.html">Courts</button>
+        <button class="tab fx-liquid" data-cat="rentals" data-href="rentals.html">Rental houses</button>
+        <button class="tab fx-liquid" data-cat="bedsitters" data-href="bedsitters.html">Bedsitters</button>
+        <button class="tab fx-liquid" data-cat="resorts" data-href="resorts.html">Resorts</button>
+        <button class="tab fx-liquid" data-cat="hotels" data-href="hotels.html">Hotels</button>
+        <button class="tab fx-liquid" data-cat="restaurants" data-href="restaurants.html">Restaurants</button>
+        <button class="tab fx-liquid" data-cat="boutiques" data-href="boutiques.html">Boutiques</button>
+        <button class="tab fx-liquid" data-cat="entertainment" data-href="entertainment.html">Entertainment</button>
+        <button class="tab fx-liquid" data-cat="business" data-href="business.html">Business</button>
+        <button class="tab fx-liquid" data-cat="medical" data-href="medical.html">Medical</button>
+      </div>
+    </nav>
+  </section>
+
+  <section class="section listings" aria-label="Featured listings">
+    <div class="section-head">
+      <h2>Priced in the open</h2>
+      <p>No hidden fees, no back-and-forth — see the rate before you message anyone.</p>
+    </div>
+
+    <div class="listing-grid">
+
+      <a href="apartments.html" class="listing-card">
+        <div class="listing-media">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&h=320&fit=crop" alt="Marigold Court">
+          <span class="badge-avail">6 vacant</span>
+        </div>
+        <div class="listing-body">
+          <p class="listing-kind">Apartment</p>
+          <h3 class="listing-name">Marigold Court</h3>
+          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Kilimani, Nairobi · 1.2 km away</p>
+          <p class="listing-price">from <span>KSh 12,000</span><small>/month</small></p>
+        </div>
+      </a>
+
+      <a href="apartments.html" class="listing-card">
+        <div class="listing-media">
+          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=320&fit=crop" alt="Riverside Bedsitters">
+          <span class="badge-avail">2 vacant</span>
+        </div>
+        <div class="listing-body">
+          <p class="listing-kind">Bedsitter</p>
+          <h3 class="listing-name">Riverside Bedsitters</h3>
+          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Ruaka, Kiambu · 3.8 km away</p>
+          <p class="listing-price">from <span>KSh 6,500</span><small>/month</small></p>
+        </div>
+      </a>
+
+      <a href="hotel-listing.html" class="listing-card">
+        <div class="listing-media">
+          <img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=500&h=320&fit=crop" alt="Baraza Hotel and Suites">
+          <span class="badge-avail">Booked</span>
+        </div>
+        <div class="listing-body">
+          <p class="listing-kind">Hotel</p>
+          <h3 class="listing-name">Baraza Hotel &amp; Suites</h3>
+          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Westlands, Nairobi · 0.6 km away</p>
+          <p class="listing-price">from <span>KSh 4,200</span><small>/night</small></p>
+        </div>
+      </a>
+
+      <a href="restaurant-listing.html" class="listing-card">
+        <div class="listing-media">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&h=320&fit=crop" alt="Jiko ya Mama restaurant">
+          <span class="badge-avail">Open now</span>
+        </div>
+        <div class="listing-body">
+          <p class="listing-kind">Restaurant</p>
+          <h3 class="listing-name">Jiko ya Mama</h3>
+          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii Town · 400 m away</p>
+          <p class="listing-price">mains from <span>KSh 250</span></p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section business-strip" aria-label="Business categories">
+    <div class="community-photo">
+      <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1100&h=380&fit=crop" alt="Two people shaking hands in Nairobi, Kenya">
+      <div class="community-photo-overlay">
+        <p>Built on trust — real people, real handshakes, real business.</p>
+      </div>
+    </div>
+    <div class="section-head">
+      <h2>Every small business, one tab away</h2>
+      <p>Owners list what they sell and the price — you open, compare, and go.</p>
+    </div>
+    <div class="chip-cloud">
+      <span class="biz-chip">Hardware</span>
+      <span class="biz-chip">Furniture</span>
+      <span class="biz-chip">Groceries</span>
+      <span class="biz-chip">Jewellery</span>
+      <span class="biz-chip">Wine shops</span>
+      <span class="biz-chip">Perfume shops</span>
+      <span class="biz-chip">Car spare parts</span>
+      <span class="biz-chip">Mutumba</span>
+      <span class="biz-chip">Phone repair</span>
+      <span class="biz-chip">Electronics</span>
+    </div>
+  </section>
+
+  <section class="section reviews-section" aria-label="Customer reviews">
+    <div class="section-head">
+      <h2>People finding their place</h2>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="review-card">
+          <div class="review-head">
+            <img class="review-avatar" src="https://images.unsplash.com/photo-1577128634172-2bd2c1d7915f?w=100&h=100&fit=crop" alt="">
+            <div class="review-name-row">
+              <span class="review-name">Faith</span>
+              <span class="verified-badge" title="Verified customer">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p>"Found a bedsitter in Ruaka within a day. The price was exactly what was listed — no surprises."</p>
+          <span class="review-loc">Kiambu</span>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <img class="review-avatar" src="https://images.unsplash.com/photo-1663227052225-14478e2c1a0a?w=100&h=100&fit=crop" alt="">
+            <div class="review-name-row">
+              <span class="review-name">Otieno</span>
+              <span class="verified-badge" title="Verified customer">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p>"Listed my hardware shop's stock in an afternoon. Customers now walk in already knowing the price."</p>
+          <span class="review-loc">Kisumu</span>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <img class="review-avatar" src="https://images.unsplash.com/photo-1577128634172-2bd2c1d7915f?w=100&h=100&fit=crop" alt="">
+            <div class="review-name-row">
+              <span class="review-name">Amina</span>
+              <span class="verified-badge" title="Verified customer">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p>"Booked a hotel room from my phone and got the confirmation tick before I'd even left the house."</p>
+          <span class="review-loc">Mombasa</span>
+        </div>
+        <div class="review-card">
+          <div class="review-head">
+            <img class="review-avatar" src="https://images.unsplash.com/photo-1663227052225-14478e2c1a0a?w=100&h=100&fit=crop" alt="">
+            <div class="review-name-row">
+              <span class="review-name">Peter</span>
+              <span class="verified-badge" title="Verified customer">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </div>
+            <span class="review-stars">★★★★★</span>
+          </div>
+          <p>"My apartment listing filled up faster once I could show real photos and the exact vacant units."</p>
+          <span class="review-loc">Nairobi</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section cta-section">
+    <div class="stats-row stats-floating">
+      <div class="stat-counter">
+        <div class="odometer" id="odometerUsers" data-target="1247382"></div>
+        <p class="stat-counter-label">people registered</p>
+      </div>
+      <div class="stat-counter">
+        <div class="odometer" id="odometerBiz" data-target="38904"></div>
+        <p class="stat-counter-label">businesses registered</p>
+      </div>
+    </div>
+    <div class="cta-box">
+      <h2>List your place. Set your price. Get found.</h2>
+      <p>Whether it's a room, a hotel, or a shopfront — get on NyumbaLink in minutes.</p>
+      <a href="#" class="btn btn-primary">Get started</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="script.js"></script>
+<script src="odometer.js"></script>
+</body>
+</html>

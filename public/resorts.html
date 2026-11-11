@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resorts — NyumbaLink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="category.css">
+<link rel="stylesheet" href="intro.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">NyumbaLink</a>
+    <form class="search-bar" role="search">
+      <i class="icon-search" aria-hidden="true"></i>
+      <input type="text" placeholder="Search apartments, hotels, shops..." aria-label="Search NyumbaLink">
+    </form>
+    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+  </div>
+</header>
+
+<main class="category-page">
+
+  <div class="breadcrumb">
+    <a href="index.html">NyumbaLink</a> <span>/</span> Resorts
+  </div>
+
+  <div class="category-head">
+    <h1>Resorts near you</h1>
+    <p>Getaways for the weekend — pools, gardens, and quiet.</p>
+  </div>
+
+
+  <section class="map-section">
+    <div id="map"></div>
+    <div class="map-overlay" id="nearestCard">
+      <p class="map-overlay-label">Nearest resort</p>
+      <p class="map-overlay-name" id="nearestName">Locating you…</p>
+      <p class="map-overlay-dist" id="nearestDist">—</p>
+    </div>
+  </section>
+
+  <section class="category-listings">
+
+    <a href="resort-listing.html" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=420&fit=crop" alt="Lakeview Resort">
+        <span class="badge-avail">8 rooms vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Resort</p>
+        <h3 class="cat-name">Lakeview Resort</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisumu</p>
+        <p class="cat-price">from <span>KSh 6,000</span><small>/night</small></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=600&h=420&fit=crop" alt="Highland Escape Resort">
+        <span class="badge-avail">3 rooms vacant</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Resort</p>
+        <h3 class="cat-name">Highland Escape Resort</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Naivasha</p>
+        <p class="cat-price">from <span>KSh 8,500</span><small>/night</small></p>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card">
+      <div class="cat-media">
+        <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&h=420&fit=crop" alt="Tabaka Hills Resort">
+        <span class="badge-avail">Fully booked</span>
+      </div>
+      <div class="cat-body">
+        <p class="cat-kind">Resort</p>
+        <h3 class="cat-name">Tabaka Hills Resort</h3>
+        <p class="cat-loc"><i class="icon-pin" aria-hidden="true"></i> Kisii County</p>
+        <p class="cat-price">from <span>KSh 5,200</span><small>/night</small></p>
+      </div>
+    </a>
+
+  </section>
+
+  <div id="tabIntro"
+       data-intro-image="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&h=900&fit=crop"
+       data-intro-eyebrow="Welcome to"
+       data-intro-title="Resorts"
+       data-intro-font="var(--font-mono)"
+       data-intro-activity="Lakeview Resort booked 5 hrs ago|Highland Escape viewed 16 times today|Tabaka Hills fully booked this weekend"></div>
+
+</main>
+
+<footer class="site-footer">
+  <p>NyumbaLink · Search affordable life, from Africa to the world</p>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  window.FINDAZ_LISTINGS = [
+    { name: 'Lakeview Resort', lat: -0.0917, lng: 34.7680, available: true },
+    { name: 'Highland Escape Resort', lat: -0.7172, lng: 36.4310, available: true },
+    { name: 'Tabaka Hills Resort', lat: -0.7500, lng: 34.8330, available: false }
+  ];
+  window.FINDAZ_NEAREST_LABEL = 'Nearest resort';
+  window.FINDAZ_MAP_CENTER = [-0.6773, 34.9500];
+</script>
+<script src="script.js"></script>
+<script src="map-listing.js"></script>
+<script src="intro.js"></script>
+</body>
+</html>
