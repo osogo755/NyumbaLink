@@ -39,11 +39,12 @@ document.querySelectorAll('form.search-bar').forEach(form => {
     const query = input.value.trim().toLowerCase();
     if (!query) return;
 
-    if (query.includes('bedsitter') || query.includes('sitter')) {
+    // English & Swahili keyword routing
+    if (query.includes('bedsitter') || query.includes('sitter') || (query.includes('single') && !query.includes('family'))) {
       window.location.href = 'bedsitters.html';
-    } else if (query.includes('house') || query.includes('maisonette') || query.includes('bungalow') || query.includes('compound') || query.includes('standalone') || query.includes('rentals')) {
+    } else if (query.includes('house') || query.includes('nyumba') || query.includes('rent') || query.includes('panga') || query.includes('maisonette') || query.includes('bungalow') || query.includes('compound') || query.includes('standalone') || query.includes('rentals')) {
       window.location.href = 'rentals.html';
-    } else if (query.includes('court') || query.includes('amani') || query.includes('buruburu') || query.includes('stella')) {
+    } else if (query.includes('court') || query.includes('koti') || query.includes('courtyard') || query.includes('amani') || query.includes('buruburu') || query.includes('stella')) {
       window.location.href = 'courts.html';
     } else {
       window.location.href = 'apartments.html';

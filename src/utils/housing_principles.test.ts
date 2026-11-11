@@ -127,3 +127,20 @@ test('canAccessAdmin restricts unauthorized users', () => {
   assert.equal(canAccessAdmin(adminSession), true);
   assert.equal(canAccessAdmin(null), false);
 });
+
+import { routeVoiceSearchQuery, getSwahiliKeywordLocale } from './housing_principles';
+
+test('routeVoiceSearchQuery handles both English and Swahili voice transcripts', () => {
+  assert.equal(routeVoiceSearchQuery('I need a bedsitter in Ruaka'), 'bedsitters.html');
+  assert.equal(routeVoiceSearchQuery('Natafuta chumba cha bedsitter'), 'bedsitters.html');
+  assert.equal(routeVoiceSearchQuery('Family rental house in Rongai'), 'rentals.html');
+  assert.equal(routeVoiceSearchQuery('Nyumba ya kupanga yenye geti'), 'rentals.html');
+  assert.equal(routeVoiceSearchQuery('Amani court units'), 'courts.html');
+  assert.equal(routeVoiceSearchQuery('Koti ya amani Nairobi'), 'courts.html');
+  assert.equal(routeVoiceSearchQuery('Kilimani 2 bedroom apartment'), 'apartments.html');
+});
+
+test('getSwahiliKeywordLocale returns proper speech recognition locale', () => {
+  assert.equal(getSwahiliKeywordLocale('sw'), 'sw-KE');
+  assert.equal(getSwahiliKeywordLocale('en'), 'en-KE');
+});

@@ -170,3 +170,26 @@ export function canAccessAdmin(session: AuthSession | null): boolean {
   if (!session) return false;
   return session.role === 'admin' || session.identifier.toLowerCase() === 'admin@gmail.com' || session.identifier.toLowerCase().includes('admin');
 }
+
+
+// ==========================================
+// BILINGUAL & VOICE SEARCH KEYWORD MATCHER
+// ==========================================
+
+export function routeVoiceSearchQuery(transcript: string): string {
+  const q = transcript.trim().toLowerCase();
+  if (q.includes('bedsitter') || q.includes('sitter') || (q.includes('single') && !q.includes('family'))) {
+    return 'bedsitters.html';
+  }
+  if (q.includes('house') || q.includes('nyumba') || q.includes('rent') || q.includes('panga') || q.includes('maisonette') || q.includes('bungalow') || q.includes('compound') || q.includes('standalone')) {
+    return 'rentals.html';
+  }
+  if (q.includes('court') || q.includes('koti') || q.includes('courtyard') || q.includes('amani')) {
+    return 'courts.html';
+  }
+  return 'apartments.html';
+}
+
+export function getSwahiliKeywordLocale(lang: 'en' | 'sw'): string {
+  return lang === 'sw' ? 'sw-KE' : 'en-KE';
+}

@@ -620,3 +620,101 @@ a { color: inherit; text-decoration: none; }
   .stats-row { gap: 32px; }
   .odometer-digit, .odometer-comma { font-size: 1.6rem; }
 }
+
+/* ---------- Voice Search Microphone Button & Wave ---------- */
+.voice-search-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.voice-search-btn:hover {
+  color: var(--purple-deep);
+  transform: scale(1.15);
+}
+
+.voice-search-btn.listening {
+  color: #E24B4A;
+  background: rgba(226, 75, 74, 0.12);
+  animation: mic-pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes mic-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(226, 75, 74, 0.4); }
+  50% { transform: scale(1.2); box-shadow: 0 0 0 8px rgba(226, 75, 74, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(226, 75, 74, 0); }
+}
+
+/* ---------- Global Language Switcher Floating & Header ---------- */
+.lang-switcher-global {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 3px 6px;
+  box-shadow: 0 2px 8px rgba(27,22,38,0.04);
+}
+
+.lang-btn-pill {
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.lang-btn-pill.active {
+  background: var(--purple-deep);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(74,63,140,0.25);
+}
+
+/* Floating Voice Status Indicator */
+.voice-status-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 14px 34px rgba(27, 22, 38, 0.2);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.voice-status-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.voice-wave-dot {
+  width: 10px;
+  height: 10px;
+  background: #E24B4A;
+  border-radius: 50%;
+  animation: mic-pulse 1s infinite;
+}
