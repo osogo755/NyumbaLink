@@ -1,0 +1,13 @@
+# Netlify & Cloudflare clean routes & redirects
+/admin            /admin.html           200
+/owner-dashboard  /owner-dashboard.html 200
+/signin           /signin.html          200
+/apartments       /apartments.html      200
+/bedsitters       /bedsitters.html      200
+/courts           /courts.html          200
+/rentals          /rentals.html         200
+/listing          /listing.html         200
+/account          /account.html         200
+/bedsitter-listing /bedsitter-listing.html 200
+/court-listing    /court-listing.html   200
+/rental-listing   /rental-listing.html  200
