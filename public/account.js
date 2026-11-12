@@ -187,7 +187,7 @@ if (signoutBtn) {
     e.preventDefault();
     localStorage.removeItem('findaz_auth_user');
     localStorage.removeItem('findaz_admin_access');
-    window.location.href = 'signin.html';
+    window.location.href = 'index.html';
   });
 }
 

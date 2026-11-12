@@ -200,7 +200,7 @@
 
       if (isSignoutAction) {
         btn.textContent = t['sign_out'] || 'Sign out';
-        btn.href = 'signin.html';
+        btn.href = 'index.html';
         btn.onclick = (e) => {
           localStorage.removeItem('findaz_auth_user');
           localStorage.removeItem('findaz_admin_access');

@@ -10,7 +10,7 @@
     const admin = localStorage.getItem('findaz_admin_access');
     if (!user && !admin) {
       sessionStorage.setItem('nyumbalink_redirect_after_login', window.location.href);
-      window.location.replace('signin.html');
+      window.location.replace('index.html');
     }
   })();
 </script>
@@ -25,7 +25,7 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">NyumbaLink</a>
+    <a href="marketplace.html" class="logo">NyumbaLink</a>
     <form class="search-bar" role="search">
       <i class="icon-search" aria-hidden="true"></i>
       <input type="text" placeholder="Search apartments, rental houses, bedsitters, courts..." aria-label="Search NyumbaLink">

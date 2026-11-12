@@ -3,212 +3,541 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- NyumbaLink Auth Gate: Require sign-in before content is seen -->
-<script>
-  (function () {
-    const user = localStorage.getItem('findaz_auth_user');
-    const admin = localStorage.getItem('findaz_admin_access');
-    if (!user && !admin) {
-      sessionStorage.setItem('nyumbalink_redirect_after_login', window.location.href);
-      window.location.replace('signin.html');
-    }
-  })();
-</script>
-<title>NyumbaLink — Search affordable life, from Africa to the world</title>
+<title>Findaz - Africa to the World Marketplace | NyumbaLink Sign In</title>
+<meta name="description" content="Sign in to NyumbaLink rentals marketplace. Choose to sign in as a tenant looking for verified homes or as a landlord managing properties.">
+<meta property="og:title" content="NyumbaLink — Sign In & Role Selection">
+<meta property="og:description" content="Africa's everyday rentals marketplace. Sign in as Tenant or Landlord.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="signin.css">
+<style>
+  .login-gateway-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(circle at 50% 8%, rgba(74, 63, 140, 0.08) 0%, transparent 60%), var(--bg);
+  }
+
+  .login-nav-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1040px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .login-container {
+    max-width: 840px;
+    margin: 16px auto 60px;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .login-hero-intro {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .login-hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--purple-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: inline-block;
+    background: rgba(74, 63, 140, 0.08);
+    padding: 4px 14px;
+    border-radius: 999px;
+  }
+
+  .login-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.85rem, 4vw, 2.45rem);
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  .login-hero-sub {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Two Big Role Selection Cards */
+  .role-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  @media (max-width: 640px) {
+    .role-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .role-entry-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 18px;
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    box-shadow: var(--shadow);
+    position: relative;
+    text-align: left;
+  }
+
+  .role-entry-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--purple-deep);
+    box-shadow: 0 14px 30px rgba(74, 63, 140, 0.12);
+  }
+
+  .role-entry-card.selected {
+    border-color: var(--purple-deep);
+    background: #FAF9FF;
+    box-shadow: 0 0 0 3px rgba(74, 63, 140, 0.18);
+  }
+
+  .role-entry-card#cardLandlord.selected {
+    border-color: var(--teal);
+    background: #F4FBF8;
+    box-shadow: 0 0 0 3px rgba(31, 158, 124, 0.2);
+  }
+
+  .role-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+  }
+
+  .role-icon-tenant {
+    background: rgba(74, 63, 140, 0.1);
+    color: var(--purple-deep);
+  }
+
+  .role-icon-landlord {
+    background: rgba(31, 158, 124, 0.12);
+    color: var(--teal);
+  }
+
+  .role-entry-title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .role-entry-desc {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 18px;
+    flex: 1;
+  }
+
+  .role-entry-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    font-size: 0.78rem;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .role-entry-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .role-entry-features li svg {
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  .btn-role-action {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 13px 18px;
+    border-radius: 10px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.94rem;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-tenant {
+    background: var(--purple-deep);
+    color: #fff;
+  }
+  .btn-tenant:hover {
+    background: #3B3270;
+  }
+
+  .btn-landlord {
+    background: var(--teal);
+    color: #fff;
+  }
+  .btn-landlord:hover {
+    background: #178366;
+  }
+
+  /* Form & Credentials Card */
+  .auth-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 28px;
+    box-shadow: var(--shadow);
+  }
+
+  .active-session-banner {
+    background: #DEF3EC;
+    border: 1px solid #1F9E7C;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: #0F5A46;
+  }
+
+  .active-session-banner a {
+    color: #0F5A46;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  .quick-demo-fill {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  .quick-demo-fill a {
+    color: var(--purple-deep);
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 3px;
+  }
+</style>
 </head>
-<body>
+<body class="login-gateway-page">
 
-<header class="site-header">
-  <div class="header-inner">
-    <a href="#top" class="logo">NyumbaLink</a>
-
-    <form class="search-bar" role="search">
-      <i class="icon-search" aria-hidden="true"></i>
-      <input type="text" placeholder="Search apartments, rental houses, bedsitters, courts..." aria-label="Search NyumbaLink">
-    </form>
-
-    <a href="signin.html" class="btn btn-ghost">Sign in</a>
+<header class="login-nav-header">
+  <a href="index.html" class="logo">NyumbaLink</a>
+  <div style="display: flex; gap: 12px; align-items: center;">
+    <div class="lang-switcher-global" aria-label="Select language">
+      <button type="button" class="lang-btn-pill active" data-lang="en">EN</button>
+      <button type="button" class="lang-btn-pill" data-lang="sw">SW</button>
+    </div>
   </div>
 </header>
 
-<main>
+<main class="login-container">
 
-  <section id="top" class="hero">
-    <p class="hero-eyebrow" data-i18n="hero_eyebrow">Africa's everyday rentals marketplace</p>
-    <h1 class="hero-title" data-i18n="hero_title">Search affordable homes from Africa to the world</h1>
-    <p class="hero-sub">Apartments, courts, rental houses, and bedsitters — all in one place, priced in the open.</p>
+  <!-- Welcome Introduction -->
+  <div class="login-hero-intro">
+    <span class="login-hero-eyebrow" data-i18n="hero_eyebrow">Africa's Everyday Rentals Marketplace</span>
+    <h1 class="login-hero-title">Sign In to NyumbaLink</h1>
+    <p class="login-hero-sub">Select your account type below to get started. Choose whether you want to search for rental homes as a tenant or manage registered properties as a landlord.</p>
+  </div>
 
-    <nav class="tab-track" aria-label="Browse rental categories">
-      <div class="tab-scroll" id="tabScroll">
-        <button class="tab fx-liquid active" data-cat="apartments" data-href="apartments.html">Apartments</button>
-        <button class="tab fx-liquid" data-cat="courts" data-href="courts.html">Courts</button>
-        <button class="tab fx-liquid" data-cat="rentals" data-href="rentals.html">Rental houses</button>
-        <button class="tab fx-liquid" data-cat="bedsitters" data-href="bedsitters.html">Bedsitters</button>
+  <!-- Active Session Banner (if returning user) -->
+  <div id="activeSessionBanner" class="active-session-banner" style="display:none;">
+    <div>
+      <strong id="sessionGreeting">Welcome back!</strong>
+      <span id="sessionDetails">You are signed in.</span>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <a id="sessionContinueLink" href="marketplace.html">Continue to App →</a>
+      <span style="opacity:0.4;">|</span>
+      <a href="#" onclick="signOutSession(event)">Switch Account</a>
+    </div>
+  </div>
+
+  <!-- TWO PRIMARY ROLE OPTIONS -->
+  <div class="role-cards-grid" role="region" aria-label="Choose Login Role">
+
+    <!-- ROLE OPTION 1: TENANT -->
+    <div class="role-entry-card selected" id="cardTenant" onclick="chooseRole('tenant')">
+      <div class="role-icon-box role-icon-tenant">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
-    </nav>
-  </section>
-
-  <section class="section listings" aria-label="Featured rental listings">
-    <div class="section-head">
-      <h2 data-i18n="priced_in_open">Priced in the open</h2>
-      <p data-i18n="priced_in_open_sub">No hidden fees, no back-and-forth — see real vacancies and monthly rates up front.</p>
-    </div>
-
-    <div class="listing-grid">
-
-      <a href="listing.html" class="listing-card">
-        <div class="listing-media">
-          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&h=320&fit=crop" alt="Marigold Court">
-          <span class="badge-avail">6 vacant</span>
-        </div>
-        <div class="listing-body">
-          <p class="listing-kind">Apartment</p>
-          <h3 class="listing-name">Marigold Court</h3>
-          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Kilimani, Nairobi · 1.2 km away</p>
-          <p class="listing-price">from <span>KSh 12,000</span><small>/month</small></p>
-        </div>
-      </a>
-
-      <a href="bedsitter-listing.html" class="listing-card">
-        <div class="listing-media">
-          <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&h=320&fit=crop" alt="Riverside Bedsitters">
-          <span class="badge-avail">2 vacant</span>
-        </div>
-        <div class="listing-body">
-          <p class="listing-kind">Bedsitter</p>
-          <h3 class="listing-name">Riverside Bedsitters</h3>
-          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Ruaka, Kiambu · 3.8 km away</p>
-          <p class="listing-price">from <span>KSh 6,500</span><small>/month</small></p>
-        </div>
-      </a>
-
-      <a href="court-listing.html" class="listing-card">
-        <div class="listing-media">
-          <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=500&h=320&fit=crop" alt="Amani Court">
-          <span class="badge-avail">4 vacant</span>
-        </div>
-        <div class="listing-body">
-          <p class="listing-kind">Court</p>
-          <h3 class="listing-name">Amani Court</h3>
-          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Buruburu, Nairobi · 2.1 km away</p>
-          <p class="listing-price">from <span>KSh 7,000</span><small>/month</small></p>
-        </div>
-      </a>
-
-      <a href="rental-listing.html" class="listing-card">
-        <div class="listing-media">
-          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=500&h=320&fit=crop" alt="3-bed House, Rongai">
-          <span class="badge-avail">Vacant</span>
-        </div>
-        <div class="listing-body">
-          <p class="listing-kind">House</p>
-          <h3 class="listing-name">3-bed House, Rongai</h3>
-          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> Rongai, Kajiado · 14 km away</p>
-          <p class="listing-price">from <span>KSh 22,000</span><small>/month</small></p>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <section class="section reviews-section" aria-label="Tenant reviews">
-    <div class="section-head">
-      <h2 data-i18n="people_finding_place">People finding their place</h2>
-      <p data-i18n="reviews_sub">Verified tenants share their rental search experience.</p>
-    </div>
-    <div class="marquee">
-      <div class="marquee-track" id="marqueeTrack">
-        <div class="review-card">
-          <div class="review-head">
-            <img class="review-avatar" src="https://images.unsplash.com/photo-1577128634172-2bd2c1d7915f?w=100&h=100&fit=crop" alt="">
-            <div class="review-name-row">
-              <span class="review-name">Faith</span>
-              <span class="verified-badge" title="Verified customer">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <p>"Found a bedsitter in Ruaka within a day. The price was exactly what was listed — no surprises."</p>
-          <span class="review-loc">Kiambu</span>
-        </div>
-        <div class="review-card">
-          <div class="review-head">
-            <img class="review-avatar" src="https://images.unsplash.com/photo-1663227052225-14478e2c1a0a?w=100&h=100&fit=crop" alt="">
-            <div class="review-name-row">
-              <span class="review-name">Peter</span>
-              <span class="verified-badge" title="Verified customer">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <p>"My apartment listing filled up faster once I could show real photos and the exact vacant units."</p>
-          <span class="review-loc">Nairobi</span>
-        </div>
-        <div class="review-card">
-          <div class="review-head">
-            <img class="review-avatar" src="https://images.unsplash.com/photo-1577128634172-2bd2c1d7915f?w=100&h=100&fit=crop" alt="">
-            <div class="review-name-row">
-              <span class="review-name">Amina</span>
-              <span class="verified-badge" title="Verified customer">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <p>"Reserved our court unit from home and received the confirmation instantly. Honest pricing with zero broker fees."</p>
-          <span class="review-loc">Buruburu</span>
-        </div>
-        <div class="review-card">
-          <div class="review-head">
-            <img class="review-avatar" src="https://images.unsplash.com/photo-1663227052225-14478e2c1a0a?w=100&h=100&fit=crop" alt="">
-            <div class="review-name-row">
-              <span class="review-name">Otieno</span>
-              <span class="verified-badge" title="Verified customer">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#1DA1F2"><path d="M12 2l2.4 2.2 3.2-.6.9 3.1 3.1.9-.6 3.2L23 12l-2.2 2.4.6 3.2-3.1.9-.9 3.1-3.2-.6L12 23l-2.4-2.2-3.2.6-.9-3.1-3.1-.9.6-3.2L1 12l2.2-2.4-.6-3.2 3.1-.9.9-3.1 3.2.6L12 2z"/><path d="M9.5 12.5l1.8 1.8 3.7-3.9" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-            </div>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <p>"Found a family house in Rongai with an own compound and gate within two days."</p>
-          <span class="review-loc">Kajiado</span>
-        </div>
+      <div class="role-entry-title">
+        <span>I am a Tenant</span>
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--purple-deep); background:rgba(74,63,140,0.1); padding:2px 8px; border-radius:999px;">Housing Search</span>
       </div>
+      <p class="role-entry-desc">
+        Search affordable verified apartments, bedsitters, courts, and houses. Reserve units safely with holding deposits protected in Synchro Escrow.
+      </p>
+      <ul class="role-entry-features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Browse verified vacancies and GPS location map</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Cadastral title deed transparency &amp; 0 hidden fees</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Deposit quarantined until house certified by field admin</li>
+      </ul>
+      <button type="button" class="btn-role-action btn-tenant" id="btnContinueTenant" onclick="quickLoginRole('tenant', event)">
+        Continue as Tenant &rarr;
+      </button>
     </div>
-  </section>
 
-  <section class="section cta-section">
-    <div class="stats-row stats-floating">
-      <div class="stat-counter">
-        <div class="odometer" id="odometerUsers" data-target="1247382"></div>
-        <p class="stat-counter-label">tenants registered</p>
+    <!-- ROLE OPTION 2: LANDLORD -->
+    <div class="role-entry-card" id="cardLandlord" onclick="chooseRole('landlord')">
+      <div class="role-icon-box role-icon-landlord">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 2l-2 2m-1-1l-3 3m2 2l-3 3m-1-1l-3 3m2 2l-3 3M3 21l18-18"/><circle cx="7.5" cy="16.5" r="4.5"/></svg>
       </div>
-      <div class="stat-counter">
-        <div class="odometer" id="odometerBiz" data-target="38904"></div>
-        <p class="stat-counter-label">property listings</p>
+      <div class="role-entry-title">
+        <span>I am a Landlord / Caretaker</span>
+        <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--teal); background:rgba(31,158,124,0.12); padding:2px 8px; border-radius:999px;">Property Owner</span>
       </div>
+      <p class="role-entry-desc">
+        Register your building, take exterior photos with phone camera or gallery, and manage certified unit listings and tenant escrow payouts.
+      </p>
+      <ul class="role-entry-features">
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Live camera capture &amp; gallery photo upload</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Automatic approval queue and title verification</li>
+        <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Guaranteed M-Pesa disbursal after site certification</li>
+      </ul>
+      <button type="button" class="btn-role-action btn-landlord" id="btnContinueLandlord" onclick="quickLoginRole('landlord', event)">
+        Continue as Landlord &rarr;
+      </button>
     </div>
-    <div class="cta-box">
-      <h2 data-i18n="cta_title">List your property. Set your rent. Get found.</h2>
-      <p data-i18n="cta_sub">Whether it's an apartment, court unit, rental house, or bedsitter — get on NyumbaLink in minutes.</p>
-      <a href="signin.html" class="btn btn-primary" data-i18n="get_started">Get started</a>
+
+  </div>
+
+  <!-- DETAILED CREDENTIALS FORM -->
+  <div class="auth-form-card">
+    <div class="mode-toggle">
+      <button class="mode-btn active" data-mode="login">Sign in with password</button>
+      <button class="mode-btn" data-mode="signup">Create new account</button>
     </div>
-  </section>
+
+    <form class="signin-form" onsubmit="return handleFormSubmit(event)">
+      <label class="field-label" id="fieldIdentifierLabel">Phone number or email address</label>
+      <input type="text" id="inputIdentifier" placeholder="0700 882 119 or user@email.com" value="0700 882 119" required>
+
+      <label class="field-label">Password</label>
+      <input type="password" id="inputPassword" placeholder="••••••••" value="tenantPass2026" required>
+
+      <button type="submit" class="btn btn-primary btn-full" id="submitBtn">Sign In as Tenant</button>
+    </form>
+
+    <div class="quick-demo-fill">
+      <strong>Instant 1-Tap Demo Logins:</strong> 
+      <a onclick="autofillAndLogin('tenant')">Tenant Demo</a> · 
+      <a onclick="autofillAndLogin('landlord')">Landlord Demo</a> · 
+      <a onclick="autofillAndLogin('admin')">Staff Login (Platform Admin)</a>
+    </div>
+
+    <p class="signin-note" style="margin-top:16px;">Protected by NyumbaLink Synchro Escrow &amp; Resident Privacy Shield.</p>
+  </div>
 
 </main>
 
 <footer class="site-footer">
-  <p>NyumbaLink · Search affordable life, from Africa to the world · <a href="signin.html?role=admin" style="opacity:0.4; font-size:0.7rem;">Staff Login</a></p>
+  <p>NyumbaLink · Search affordable life, from Africa to the world · <a href="index.html?role=admin" style="opacity:0.4; font-size:0.75rem;">Staff Login</a></p>
 </footer>
 
-<script src="findaz-synchro.js"></script>
-<script src="script.js"></script>
-<script src="odometer.js"></script>
+<script>
+  let selectedRole = 'tenant'; // 'tenant' | 'landlord' | 'admin'
+  let currentMode = 'login'; // 'login' | 'signup'
+
+  function updateRoleUI() {
+    const cardTenant = document.getElementById('cardTenant');
+    const cardLandlord = document.getElementById('cardLandlord');
+    const submitBtn = document.getElementById('submitBtn');
+    const inputIdentifier = document.getElementById('inputIdentifier');
+    const inputPassword = document.getElementById('inputPassword');
+
+    if (cardTenant) cardTenant.classList.toggle('selected', selectedRole === 'tenant');
+    if (cardLandlord) cardLandlord.classList.toggle('selected', selectedRole === 'landlord');
+
+    const actionText = currentMode === 'signup' ? 'Create Account' : 'Sign In';
+
+    if (selectedRole === 'tenant') {
+      submitBtn.textContent = actionText + ' as Tenant';
+      submitBtn.style.background = 'var(--purple-deep)';
+      if (inputIdentifier.value === '0712 345 678' || inputIdentifier.value === 'admin@gmail.com') {
+        inputIdentifier.value = '0700 882 119';
+        inputPassword.value = 'tenantPass2026';
+      }
+    } else if (selectedRole === 'landlord') {
+      submitBtn.textContent = actionText + ' as Landlord';
+      submitBtn.style.background = 'var(--teal)';
+      if (inputIdentifier.value === '0700 882 119' || inputIdentifier.value === 'admin@gmail.com') {
+        inputIdentifier.value = '0712 345 678';
+        inputPassword.value = 'landlordPass2026';
+      }
+    } else if (selectedRole === 'admin') {
+      submitBtn.textContent = 'Sign In to Admin Command Center';
+      submitBtn.style.background = 'var(--amber)';
+    }
+  }
+
+  function chooseRole(role) {
+    selectedRole = role;
+    updateRoleUI();
+  }
+
+  function quickLoginRole(role, event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    autofillAndLogin(role);
+  }
+
+  function autofillAndLogin(role) {
+    selectedRole = role;
+    const inputIdentifier = document.getElementById('inputIdentifier');
+    const inputPassword = document.getElementById('inputPassword');
+
+    if (role === 'tenant') {
+      inputIdentifier.value = '0700 882 119';
+      inputPassword.value = 'tenantPass2026';
+    } else if (role === 'landlord') {
+      inputIdentifier.value = '0712 345 678';
+      inputPassword.value = 'landlordPass2026';
+    } else if (role === 'admin') {
+      inputIdentifier.value = 'admin@gmail.com';
+      inputPassword.value = 'Admin2026';
+    }
+    updateRoleUI();
+
+    // Execute authentication directly
+    performAuth(inputIdentifier.value, inputPassword.value, role);
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const ident = document.getElementById('inputIdentifier').value.trim();
+    const pass = document.getElementById('inputPassword').value.trim();
+    performAuth(ident, pass, selectedRole);
+    return false;
+  }
+
+  function performAuth(identifier, password, role) {
+    const identLower = identifier.toLowerCase();
+
+    // Validate Admin credentials
+    if (role === 'admin' || identLower === 'admin@gmail.com') {
+      if (identLower === 'admin@gmail.com' && password === 'Admin2026') {
+        localStorage.setItem('findaz_admin_access', 'granted');
+        localStorage.setItem('findaz_auth_user', JSON.stringify({
+          identifier: 'admin@gmail.com',
+          role: 'admin',
+          signedInAt: new Date().toISOString()
+        }));
+        window.location.href = 'admin.html';
+        return;
+      } else {
+        alert('Invalid admin credentials. Please use email: admin@gmail.com and password: Admin2026');
+        return;
+      }
+    }
+
+    // Tenant / Landlord authentication
+    const user = {
+      identifier: identifier || (role === 'landlord' ? '0712 345 678' : '0700 882 119'),
+      role: role,
+      signedInAt: new Date().toISOString()
+    };
+    localStorage.setItem('findaz_auth_user', JSON.stringify(user));
+
+    if (role === 'landlord') {
+      window.location.href = 'owner-dashboard.html';
+    } else {
+      // Check if there was an attempted page before login
+      const redirectTarget = sessionStorage.getItem('nyumbalink_redirect_after_login');
+      if (redirectTarget && !redirectTarget.includes('index.html') && !redirectTarget.includes('signin.html')) {
+        sessionStorage.removeItem('nyumbalink_redirect_after_login');
+        window.location.href = redirectTarget;
+      } else {
+        window.location.href = 'marketplace.html';
+      }
+    }
+  }
+
+  function signOutSession(e) {
+    if (e) e.preventDefault();
+    localStorage.removeItem('findaz_auth_user');
+    localStorage.removeItem('findaz_admin_access');
+    const banner = document.getElementById('activeSessionBanner');
+    if (banner) banner.style.display = 'none';
+  }
+
+  // Check if returning user already has a session
+  (function checkExistingSession() {
+    const raw = localStorage.getItem('findaz_auth_user');
+    if (!raw) return;
+    try {
+      const u = JSON.parse(raw);
+      const banner = document.getElementById('activeSessionBanner');
+      const details = document.getElementById('sessionDetails');
+      const continueLink = document.getElementById('sessionContinueLink');
+
+      if (banner && details && continueLink) {
+        banner.style.display = 'flex';
+        details.textContent = `Signed in as ${u.role === 'landlord' ? 'Landlord / Caretaker' : 'Tenant'} (${u.identifier}).`;
+        continueLink.href = u.role === 'landlord' ? 'owner-dashboard.html' : 'marketplace.html';
+      }
+    } catch(e){}
+  })();
+
+  // Mode toggles
+  document.querySelectorAll('.mode-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentMode = btn.dataset.mode;
+      updateRoleUI();
+    });
+  });
+
+  // Query parameter check: ?role=landlord or ?role=admin
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('role') === 'landlord') {
+    chooseRole('landlord');
+  } else if (urlParams.get('role') === 'admin') {
+    autofillAndLogin('admin');
+  }
+</script>
 <script src="nyumbalink-i18n-voice.js"></script>
 </body>
 </html>

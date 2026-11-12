@@ -10,7 +10,7 @@
     const admin = localStorage.getItem('findaz_admin_access');
     if (!user && !admin) {
       sessionStorage.setItem('nyumbalink_redirect_after_login', window.location.href);
-      window.location.replace('signin.html?role=landlord');
+      window.location.replace('index.html?role=landlord');
     }
   })();
 </script>
@@ -45,10 +45,10 @@
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo">NyumbaLink <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--purple-deep); background:rgba(74,63,140,0.09); padding:3px 8px; border-radius:999px; margin-left:6px;">Landlord Hub</span></a>
+    <a href="marketplace.html" class="logo">NyumbaLink <span style="font-size:0.75rem; font-family:var(--font-mono); color:var(--purple-deep); background:rgba(74,63,140,0.09); padding:3px 8px; border-radius:999px; margin-left:6px;">Landlord Hub</span></a>
     <div style="margin-left:auto; display:flex; gap:12px; align-items:center;">
-      <a href="index.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Marketplace</a>
-      <a href="signin.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Sign out</a>
+      <a href="marketplace.html" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Marketplace</a>
+      <a href="index.html" onclick="localStorage.removeItem('findaz_auth_user'); localStorage.removeItem('findaz_admin_access');" class="btn btn-ghost" style="font-size:0.8rem; padding:8px 14px;">Sign out</a>
     </div>
   </div>
 </header>
