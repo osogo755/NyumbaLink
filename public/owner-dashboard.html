@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- NyumbaLink Auth Gate -->
+<script>
+  (function () {
+    const user = localStorage.getItem('findaz_auth_user');
+    const admin = localStorage.getItem('findaz_admin_access');
+    if (!user && !admin) {
+      sessionStorage.setItem('nyumbalink_redirect_after_login', window.location.href);
+      window.location.replace('signin.html?role=landlord');
+    }
+  })();
+</script>
 <title>Landlord Portal & Property Registration — NyumbaLink</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -101,8 +101,14 @@ function handleSubmit(e) {
   if (currentRole === 'landlord') {
     window.location.href = 'owner-dashboard.html';
   } else {
-    // Tenant view
-    window.location.href = 'account.html?type=customer';
+    // Tenant view: redirect to original requested page or to marketplace home
+    const redirectTarget = sessionStorage.getItem('nyumbalink_redirect_after_login');
+    if (redirectTarget && !redirectTarget.includes('signin.html')) {
+      sessionStorage.removeItem('nyumbalink_redirect_after_login');
+      window.location.href = redirectTarget;
+    } else {
+      window.location.href = 'index.html';
+    }
   }
 
   return false;
