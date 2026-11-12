@@ -189,3 +189,215 @@
 @media (max-width: 640px) {
   .records-table { display: block; overflow-x: auto; white-space: nowrap; }
 }
+
+/* Tenant Registered Houses Section */
+.tenant-houses-section {
+  margin-bottom: 44px;
+}
+
+.tenant-houses-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tenant-houses-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.house-filter-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.house-filter-pill.active {
+  background: var(--purple-deep);
+  color: #fff;
+  border-color: var(--purple-deep);
+}
+
+.houses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.house-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow);
+}
+
+.house-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+.house-media {
+  position: relative;
+  height: 170px;
+  background: #eee;
+  overflow: hidden;
+}
+
+.house-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.house-badge-avail {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(15, 90, 70, 0.92);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.house-badge-occupied {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(155, 28, 28, 0.9);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.house-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.house-kind-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--purple-deep);
+  margin-bottom: 4px;
+}
+
+.house-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.house-loc {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.house-title-cert {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #DEF3EC;
+  color: #0F5A46;
+  border: 1px solid #1F9E7C;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.house-synchro-tag {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.house-price-row {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.house-price {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.96rem;
+  color: var(--amber);
+}
+
+.house-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.house-btn-apply {
+  flex: 1;
+  text-align: center;
+  background: var(--purple-deep);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.house-btn-apply:hover {
+  background: #3B3270;
+}
+
+.house-btn-view {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-decoration: none;
+}
+

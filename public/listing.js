@@ -49,14 +49,22 @@ function confirmPayment() {
   if (!isNaN(num)) amount = num;
 
   if (window.SynchroService) {
+    const activeP = window._activeProperty || {
+      id: 'PROP-NAI-001',
+      name: 'Marigold Court',
+      landlordId: 'LL-88201',
+      landlordName: 'James M. (Landlord)',
+      landlordPhone: '+254 712 345 678'
+    };
+
     const hold = window.SynchroService.createEscrowHold({
       tenantName: applicantName,
       tenantPhone: '+254 700 ' + Math.floor(100000 + Math.random() * 900000),
-      landlordId: 'LL-88201',
-      landlordName: 'James M. (Landlord)',
-      landlordPhone: '+254 712 345 678',
-      propertyId: 'PROP-NAI-001',
-      propertyName: 'Marigold Court',
+      landlordId: activeP.landlordId || 'LL-88201',
+      landlordName: activeP.landlordName || 'James M. (Landlord)',
+      landlordPhone: activeP.landlordPhone || '+254 712 345 678',
+      propertyId: activeP.id,
+      propertyName: activeP.name,
       unitId: roomName,
       amountKES: amount,
       paymentChannel: 'M-Pesa Synchro Escrow (Paybill 400200)'
@@ -67,6 +75,35 @@ function confirmPayment() {
   stepPay.classList.add('hidden');
   stepConfirm.classList.remove('hidden');
 }
+
+function loadRegisteredPropertyFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const propId = params.get('prop') || params.get('id');
+  if (!propId || !window.SynchroService) return;
+
+  const props = window.SynchroService.getProperties();
+  const found = props.find(p => p.id === propId);
+  if (!found) return;
+
+  const titleEl = document.querySelector('.title-block h1');
+  if (titleEl) titleEl.textContent = found.name;
+
+  const locEl = document.querySelector('.location');
+  if (locEl) locEl.innerHTML = '<i class="icon-pin" aria-hidden="true"></i> ' + found.location + (found.cadastralTitleNo ? ' · Title: ' + found.cadastralTitleNo : '');
+
+  const mainImg = document.getElementById('mainImage');
+  if (mainImg && found.imageUrl) mainImg.src = found.imageUrl;
+
+  const descEl = document.querySelector('.about-block p');
+  if (descEl && found.description) descEl.textContent = found.description;
+
+  if (found.landlordPhone) window._ownerPhone = found.landlordPhone;
+
+  // Set active property reference for escrow holding
+  window._activeProperty = found;
+}
+
+loadRegisteredPropertyFromUrl();
 
 bookingModal.addEventListener('click', (e) => {
   if (e.target === bookingModal) closeBooking();

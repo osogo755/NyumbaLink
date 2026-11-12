@@ -80,6 +80,36 @@
     <span class="manage-arrow">→</span>
   </a>
 
+  <!-- SECTION: REGISTERED HOUSES & VERIFIED VACANCIES FOR TENANTS -->
+  <section class="tenant-houses-section" id="tenantHousesSection">
+    <div class="tenant-houses-header">
+      <div>
+        <h2 style="font-family:var(--font-display); font-size:1.35rem; margin-bottom:4px;">Registered Houses &amp; Verified Vacancies</h2>
+        <p style="font-size:0.85rem; color:var(--ink-soft);">
+          Explore houses registered by landlords and certified by NyumbaLink admin. Your reservation deposit is held in Synchro Escrow until on-site inspection passes.
+        </p>
+      </div>
+      <div class="tenant-houses-filters" role="tablist">
+        <button type="button" class="house-filter-pill active" data-category="all">All Houses (<span id="allHousesCount">0</span>)</button>
+        <button type="button" class="house-filter-pill" data-category="apartments">Apartments</button>
+        <button type="button" class="house-filter-pill" data-category="bedsitters">Bedsitters</button>
+        <button type="button" class="house-filter-pill" data-category="courts">Courts</button>
+        <button type="button" class="house-filter-pill" data-category="rentals">Houses</button>
+      </div>
+    </div>
+
+    <!-- Search input -->
+    <div style="margin-bottom:20px; display:flex; gap:12px; align-items:center;">
+      <input type="text" id="tenantHouseSearch" placeholder="Filter registered houses by name, location (e.g. Kilimani, Ruaka, Rongai) or title parcel..." style="flex:1; border:1px solid var(--border); border-radius:10px; padding:11px 16px; font-size:0.88rem; background:var(--bg); outline:none;">
+      <button type="button" class="btn btn-ghost" onclick="window.renderTenantHouses && window.renderTenantHouses()" style="font-size:0.8rem; padding:10px 16px;">Refresh Houses</button>
+    </div>
+
+    <!-- Grid of registered properties -->
+    <div class="houses-grid" id="tenantHousesGrid">
+      <!-- Dynamically populated by account.js -->
+    </div>
+  </section>
+
   <section class="records-section">
     <h2 id="recordsTitle">Rental booking history</h2>
     <p class="records-note">Every record here is proof of a reservation deposit — kept with a timestamp and verification reference.</p>
@@ -114,6 +144,7 @@
   <p>NyumbaLink · Search affordable life, from Africa to the world</p>
 </footer>
 
+<script src="findaz-synchro.js"></script>
 <script src="account.js"></script>
 <script src="nyumbalink-i18n-voice.js"></script>
 </body>

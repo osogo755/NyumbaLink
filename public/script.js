@@ -51,3 +51,35 @@ document.querySelectorAll('form.search-bar').forEach(form => {
     }
   });
 });
+
+// Dynamically synchronize registered approved houses from SynchroService into homepage listing grid
+(function syncHomepageListings() {
+  if (!window.SynchroService) return;
+  const grid = document.querySelector('.listing-grid');
+  if (!grid) return;
+
+  const approved = window.SynchroService.getApprovedProperties();
+  if (!approved || !approved.length) return;
+
+  grid.innerHTML = approved.map(p => {
+    const isVacant = p.vacantCount > 0;
+    const availText = isVacant ? (p.vacantCount + ' vacant') : 'Occupied';
+    const catLabel = p.category ? (p.category.charAt(0).toUpperCase() + p.category.slice(1)) : 'Rental';
+    
+    return `
+      <a href="listing.html?prop=${p.id}" class="listing-card">
+        <div class="listing-media">
+          <img src="${p.imageUrl}" alt="${p.name}">
+          <span class="badge-avail">${availText}</span>
+        </div>
+        <div class="listing-body">
+          <p class="listing-kind">${catLabel} · <span style="font-family:var(--font-mono); font-size:0.7rem;">${p.id}</span></p>
+          <h3 class="listing-name">${p.name}</h3>
+          <p class="listing-loc"><i class="icon-pin" aria-hidden="true"></i> ${p.location}</p>
+          <p class="listing-price">from <span>KSh ${p.priceKES.toLocaleString()}</span><small>/month</small></p>
+        </div>
+      </a>
+    `;
+  }).join('');
+})();
+
