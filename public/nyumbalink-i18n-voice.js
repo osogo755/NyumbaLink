@@ -137,7 +137,8 @@
   }
 
   function applyTranslations(lang) {
-    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    const cur = lang || getCurrentLanguage();
+    const t = TRANSLATIONS[cur] || TRANSLATIONS.en;
 
     // 1. Update elements with data-i18n attributes
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -181,10 +182,46 @@
       mapOverlayLabel.textContent = t['nearest_vacant'];
     }
 
-    // 6. Update Sign-in / Sign-out buttons in header
+    // 6. Update Sign-in / Sign-out buttons in header based on actual authentication state
+    const authUserRaw = localStorage.getItem('findaz_auth_user');
+    let loggedInUser = null;
+    if (authUserRaw) {
+      try { loggedInUser = JSON.parse(authUserRaw); } catch(e){}
+    }
+
     document.querySelectorAll('.site-header .btn-ghost').forEach(btn => {
-      if (btn.href && btn.href.includes('signin.html') && !btn.textContent.includes('Admin')) {
-        btn.textContent = t['sign_in'];
+      // Don't modify the "Marketplace" button or other navigational links
+      if (btn.textContent.includes('Marketplace') || btn.textContent.includes('Soko')) return;
+
+      const isSignoutAction = btn.id === 'signoutBtn' || 
+                              btn.getAttribute('data-action') === 'signout' || 
+                              btn.textContent.toLowerCase().includes('sign out') || 
+                              btn.textContent.toLowerCase().includes('ondoka');
+
+      if (isSignoutAction) {
+        btn.textContent = t['sign_out'] || 'Sign out';
+        btn.href = 'signin.html';
+        btn.onclick = (e) => {
+          localStorage.removeItem('findaz_auth_user');
+          localStorage.removeItem('findaz_admin_access');
+        };
+      } else if (loggedInUser) {
+        // User is logged in: show appropriate destination instead of "Sign in"
+        if (loggedInUser.role === 'landlord') {
+          btn.textContent = (cur === 'sw' ? 'Mwenye Nyumba' : 'Landlord Hub');
+          btn.href = 'owner-dashboard.html';
+        } else if (loggedInUser.role === 'admin') {
+          btn.textContent = 'Admin Command';
+          btn.href = 'admin.html';
+        } else {
+          btn.textContent = (cur === 'sw' ? 'Akaunti Yangu' : 'My Account');
+          btn.href = 'account.html?type=customer';
+        }
+      } else {
+        // User is not logged in
+        if (btn.href && btn.href.includes('signin.html')) {
+          btn.textContent = t['sign_in'] || 'Sign in';
+        }
       }
     });
 
@@ -246,9 +283,23 @@
         });
       });
 
-      // Insert right before the sign-in button
+      // Safely locate direct child of header to insert switcher before
       const signinBtn = header.querySelector('.btn-ghost') || header.lastElementChild;
-      header.insertBefore(switcher, signinBtn);
+      let targetChild = null;
+      if (signinBtn) {
+        for (let i = 0; i < header.children.length; i++) {
+          if (header.children[i] === signinBtn || header.children[i].contains(signinBtn)) {
+            targetChild = header.children[i];
+            break;
+          }
+        }
+      }
+
+      if (targetChild && targetChild.parentNode === header) {
+        header.insertBefore(switcher, targetChild);
+      } else {
+        header.appendChild(switcher);
+      }
     });
 
     // 3. Create Voice Status Floating Toast if not present

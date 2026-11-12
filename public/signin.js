@@ -35,6 +35,13 @@ function updateUI() {
 
 function selectRole(role) {
   currentRole = role;
+  if (role === 'landlord' && (inputIdentifier.value === '0700 882 119' || !inputIdentifier.value)) {
+    inputIdentifier.value = '0712 345 678';
+    inputPassword.value = 'landlordPass2026';
+  } else if (role === 'tenant' && (inputIdentifier.value === '0712 345 678' || !inputIdentifier.value)) {
+    inputIdentifier.value = '0700 882 119';
+    inputPassword.value = 'tenantPass2026';
+  }
   updateUI();
 }
 
